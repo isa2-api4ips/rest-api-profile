@@ -1,0 +1,35 @@
+{
+  "title": "A Message Reference object defined by the ISA² IPS REST API Messaging API Specification",
+  "required": [
+    "messageReferenceList"
+  ],
+  "type": "object",
+  "properties": {
+    "messageReferenceList": {
+      "type": "array",
+      "description": "List of message references.",
+      "items": {
+        "$ref": "./message-reference.json"
+      }
+    },
+    "count": {
+      "type": "integer",
+      "description": "Count of all messages",
+      "format": "int32"
+    },
+    "limit": {
+      "type": "integer",
+      "description": "limit number of references.",
+      "format": "int32"
+    },
+    "offset": {
+      "type": "integer",
+      "description": "offset of references.",
+      "format": "int32"
+    }
+  },
+  "description": "A Message Reference object to be used when multiple messages could be retrieved from an API operation",
+  "$id": "https://joinup.ec.europa.eu/collection/api4dt/solution/.../message-reference-schema-list.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}
+

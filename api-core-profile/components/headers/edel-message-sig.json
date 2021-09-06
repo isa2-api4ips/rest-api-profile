@@ -1,0 +1,8 @@
+{
+  "name": "Edel-Message-Sig",
+  "description": "The Edel-Message-Sig carries the signature of the HTTP Message following the API Core Profile on Message-Level Security. Following the light context constraints, the signature is optional for the client messages, but is RECOMMENDED for server messages.",
+  "schema": {
+    "$ref": "../schemas/jws-compact-detached.json"
+  },
+  "example": "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9..SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
+}

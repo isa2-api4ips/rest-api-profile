@@ -1,0 +1,10 @@
+{
+  "name": "Action",
+  "in": "path",
+  "description": "The Action metadata defines the Action under which the message is sent. It is combined with the Action metadata to provide a complete domain-level message target. The Action metadata MUST be a URL Safe string.",
+  "required": true,
+  "schema": {
+    "type": "string"
+  },
+  "example": "dsd-action"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Original-Sender",
+  "description": "The Original Sender represents the authenticated entity acting as the user that sends the message using the client. Following the API Core Profile, the original sender MUST be represented with an OpenID Connect token, in the form of Compact JWT Token.",
+  "schema": {
+    "$ref": "../../../api-core-profile/components/schemas/jws-compact-detached.json"
+  },
+  "example": "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9.eyJzdWIiOiIxM0NTY3ODkwIiwibmIiwiaWF0IoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
+}

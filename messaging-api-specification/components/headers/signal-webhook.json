@@ -1,0 +1,8 @@
+{
+  "name": "Signal-Webhook",
+  "description": "The Signal-Webhook provides the callback URL that the server MUST use for sending a signal back. It is required when implementing the \"Send Message with Asynchronous Response – Push and Webhook Pull\" exchange pattern.",
+  "schema": {
+    "type": "string",
+    "format": "uri"
+  }
+}

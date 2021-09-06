@@ -1,0 +1,10 @@
+{
+  "name": "Timestamp",
+  "in": "header",
+  "description": "The Timestamp is the exact date and time at which the message was sent. It is provided by the client and verified by the server.",
+  "schema": {
+    "type": "string",
+    "format": "date-time"
+  },
+  "example": "2021-06-17T08:30:00Z"
+}

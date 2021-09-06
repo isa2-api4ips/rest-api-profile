@@ -1,0 +1,10 @@
+{
+  "name": "Service",
+  "in": "path",
+  "description": "The Service metadata defines the service under which the message should be sent. It is combined with the Action metadata to provide a complete domain-level message target. The service metadata MUST be a URL Safe string.",
+  "required": true,
+  "schema": {
+    "type": "string"
+  },
+  "example": "dsd-service"
+}

@@ -1,0 +1,20 @@
+{
+  "properties": {
+    "maturity": [
+      "development",
+      "supported",
+      "deprecated"
+    ],
+    "deprecated6_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "sunset_at": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "maturity"
+  ]
+}

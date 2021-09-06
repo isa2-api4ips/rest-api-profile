@@ -1,0 +1,10 @@
+{
+  "name": "rService",
+  "in": "path",
+  "description": "A representation of the service the response message is submitted to. The service metadata MUST be a URL Safe string.",
+  "required": true,
+  "schema": {
+    "type": "string"
+  },
+  "example": "dsd-response-service"
+}

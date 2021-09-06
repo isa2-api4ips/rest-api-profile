@@ -1,0 +1,9 @@
+{
+  "name": "Final-Recipient",
+  "in": "header",
+  "description": "The Final Recipient is the entity for whom the message is sent. Can be a single identifier or a set of identifiers, as described in the Recipient Addressing Schemes section of the specification. The representation of the final recipient is out of scope of the current specification.",
+  "schema": {
+    "type": "string"
+  },
+  "example": "9999::333222111"
+}

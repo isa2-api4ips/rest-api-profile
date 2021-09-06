@@ -1,0 +1,10 @@
+{
+  "name": "messageId",
+  "in": "path",
+  "description": "The MessageId is the unique identifier of the message submitted. It MUST be defined by the client. It is used for reliable messaging for guaranteeing the at-most-once message submission (no duplicate message-ids are allowed by the server implementing the API).",
+  "required": true,
+  "schema": {
+    "type": "string"
+  },
+  "example": "49bec0ff-bbe0-4600-8ea5-e488c53e86ab"
+}
