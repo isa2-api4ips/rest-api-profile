@@ -1,7 +1,7 @@
 {
   "name" : "rService",
   "in" : "path",
-  "description" : "The Service metadata defines the service under which the message should be sent. It is combined with the Action metadata to provide a complete domain-level message target. The service metadata MUST be a URL Safe string.",
+  "description" : "The Response Service metadata defines the service under which the response message should be sent. It is combined with the Response Action metadata to provide a complete domain-level message target. The Response Service metadata MUST be a URL Safe string.",
   "required" : true,
   "schema" : {
     "type" : "string"

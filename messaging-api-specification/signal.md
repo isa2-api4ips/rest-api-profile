@@ -33,5 +33,5 @@ The following pre-defined signals MUST be supported by both the client and the s
 
 <h2 id="internal-server-error">Internal Server Error</h2>
 <b>Status:</b> 500<BR />
-<b>Type:</b> https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error<BR />
+<b>Type:</b> https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error<BR />
 <b>Detail:</b> The server encountered an unexpected condition that prevented it from fulfilling the request<BR />

@@ -1,18 +1,15 @@
 {
   "openapi" : "3.1.0",
   "info" : {
-    "title" : "DSD Message service handler API",
+    "title" : "Generic Messaging API",
     "description" : "This is a pilot project for  implementing ISA2 messaging REST API",
     "termsOfService" : "https://www.eupl.eu/",
-    "contact" : {
-      "name" : "Test user"
-    },
     "license" : {
       "name" : "EUPL 1.2",
       "url" : "https://www.eupl.eu/"
     },
     "version" : "v1.0",
-    "summary" : "DSD messaging rest service",
+    "summary" : "Generic Messaging API",
     "x-edel-lifecycle" : {
       "maturity" : "development"
     },
@@ -25,10 +22,6 @@
     "description" : "ISA² IPS REST API Core Profile - OpenAPI Document Specification",
     "url" : "https://ec.europa.eu/cefdigital/wiki/pages/viewpage.action?pageId=254313406"
   },
-  "servers" : [ {
-    "url" : "http://localhost:8080/dsd-mock",
-    "description" : "Test server!"
-  } ],
   "tags" : [ {
     "name" : "Response Message Reference List",
     "description" : "This endpoints returns a list of response message references available for pulling"
@@ -169,7 +162,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
@@ -328,7 +321,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
@@ -370,15 +363,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "793d9bdd-568e-4eb5-93c4-968e3d8bbaa5",
+                    "messageId" : "243d85be-a464-4724-ad7d-f4575b8c2d4d",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/793d9bdd-568e-4eb5-93c4-968e3d8bbaa5"
+                    "href" : "/my-service/my-action/243d85be-a464-4724-ad7d-f4575b8c2d4d"
                   }, {
-                    "messageId" : "73842f99-ffb0-4cb1-9cda-fad8bbe18368",
+                    "messageId" : "cb92b54e-d392-4e08-9cff-185424a35b81",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/73842f99-ffb0-4cb1-9cda-fad8bbe18368"
+                    "href" : "/my-service/my-action/cb92b54e-d392-4e08-9cff-185424a35b81"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -517,7 +510,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
@@ -655,7 +648,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
@@ -816,7 +809,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
@@ -865,15 +858,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "edb62aea-a6fe-4dcd-8240-2cd0579785a2",
+                    "messageId" : "8778c848-20d8-4dda-88ab-66d4899064fe",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/edb62aea-a6fe-4dcd-8240-2cd0579785a2"
+                    "href" : "/my-service/my-action/8778c848-20d8-4dda-88ab-66d4899064fe"
                   }, {
-                    "messageId" : "e5d9630b-3631-43ef-b095-6f0301258e15",
+                    "messageId" : "e672bd14-0464-4e55-9960-de179a67f37e",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/e5d9630b-3631-43ef-b095-6f0301258e15"
+                    "href" : "/my-service/my-action/e672bd14-0464-4e55-9960-de179a67f37e"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1012,7 +1005,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
@@ -1063,15 +1056,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "56e614dc-340d-4c83-8e8b-5393de63fff8",
+                    "messageId" : "fae17e6f-b8a9-4893-a59b-0d7bde704489",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/56e614dc-340d-4c83-8e8b-5393de63fff8"
+                    "href" : "/my-service/my-action/fae17e6f-b8a9-4893-a59b-0d7bde704489"
                   }, {
-                    "messageId" : "1f70501d-f63d-47e6-8817-b0d0b5d0b2da",
+                    "messageId" : "7d4dd53c-c4f5-479f-9367-2c9dcab962f4",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/1f70501d-f63d-47e6-8817-b0d0b5d0b2da"
+                    "href" : "/my-service/my-action/7d4dd53c-c4f5-479f-9367-2c9dcab962f4"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1210,7 +1203,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
@@ -1263,15 +1256,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "a1af6d35-34f0-4f3e-b658-42219f7f0e49",
+                    "messageId" : "0f4a134e-e254-490f-9123-3de5f1907bc8",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/a1af6d35-34f0-4f3e-b658-42219f7f0e49"
+                    "href" : "/my-service/my-action/0f4a134e-e254-490f-9123-3de5f1907bc8"
                   }, {
-                    "messageId" : "f8719f7d-148f-4ce8-8b43-cbf5a64de22b",
+                    "messageId" : "53ff7864-4f33-4cac-8f8a-027a9423a929",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/f8719f7d-148f-4ce8-8b43-cbf5a64de22b"
+                    "href" : "/my-service/my-action/53ff7864-4f33-4cac-8f8a-027a9423a929"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1410,7 +1403,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
@@ -1457,15 +1450,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "f8511245-9f5d-4e70-b80b-856eb2840ebd",
+                    "messageId" : "a83b7d0f-09f3-4d16-bcb1-2fe0a6833945",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/f8511245-9f5d-4e70-b80b-856eb2840ebd"
+                    "href" : "/my-service/my-action/a83b7d0f-09f3-4d16-bcb1-2fe0a6833945"
                   }, {
-                    "messageId" : "de1c9769-637b-47e4-9564-44583304b8b2",
+                    "messageId" : "d7688233-5649-4028-887d-80f208fbc2d9",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/de1c9769-637b-47e4-9564-44583304b8b2"
+                    "href" : "/my-service/my-action/d7688233-5649-4028-887d-80f208fbc2d9"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1604,7 +1597,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
@@ -1649,15 +1642,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "3b428af0-390a-4371-acc7-dba0e4842acb",
+                    "messageId" : "0f71c221-e674-40d1-a74e-2b97da8bfcd3",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/3b428af0-390a-4371-acc7-dba0e4842acb"
+                    "href" : "/my-service/my-action/0f71c221-e674-40d1-a74e-2b97da8bfcd3"
                   }, {
-                    "messageId" : "3d377308-4a5b-41d4-a7f7-2dd60079023d",
+                    "messageId" : "734defd5-f914-4d50-b552-40d2c8177e2a",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/3d377308-4a5b-41d4-a7f7-2dd60079023d"
+                    "href" : "/my-service/my-action/734defd5-f914-4d50-b552-40d2c8177e2a"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1796,7 +1789,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
@@ -2006,7 +1999,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
@@ -2164,7 +2157,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
@@ -2208,12 +2201,13 @@
           "title" : {
             "type" : "string",
             "description" : "A short summary of the problem type, written in English and readable for engineers (usually not suited for non technical stakeholders and not localized).",
-            "example" : "Service Unavailable"
+            "example" : "Message Accepted"
           },
           "type" : {
             "type" : "string",
-            "description" : "An URI reference that identifies the problem type. When dereferenced, it SHOULD provide human-readable documentation for the problem type (e.g. using HTML)",
+            "description" : "An URI reference that identifies the problem type. When dereferenced, it SHOULD provide human-readable documentation for the problem type (e.g. using HTML).",
             "format" : "uri",
+            "example" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-accepted",
             "default" : "about:blank"
           },
           "status" : {
@@ -2221,23 +2215,23 @@
             "exclusiveMaximum" : true,
             "minimum" : 200,
             "type" : "integer",
-            "description" : "The HTTP status code generated by the origin server for this occurrence of the ",
+            "description" : "The HTTP status code generated by the origin server for this occurrence of the problem.",
             "format" : "int32",
-            "example" : 503
+            "example" : 202
           },
           "detail" : {
             "type" : "string",
-            "description" : "A human-readable explanation specific to this occurrence of the problem",
+            "description" : "A human-readable explanation specific to this occurrence of the problem.",
             "format" : "string"
           },
           "instance" : {
             "type" : "string",
-            "description" : "A URI reference that identifies the specific occurrence of the  It may or may not yield further information if dereferenced.",
+            "description" : "A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.",
             "format" : "uri-reference"
           },
           "digest" : {
             "type" : "string",
-            "description" : "The digest of the received message using the notation proposed in 'Digest Header' (https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-digest-headers)",
+            "description" : "The digest of the received message using the notation proposed in 'Digest Header' (https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-digest-headers).",
             "format" : "string",
             "example" : "sha-256=4REjxQ4yrqUVicfSKYNO/cF9zNj5ANbzgDZt3/h3Qxo="
           }
@@ -2451,7 +2445,7 @@
       "rService" : {
         "name" : "rService",
         "in" : "path",
-        "description" : "The Service metadata defines the service under which the message should be sent. It is combined with the Action metadata to provide a complete domain-level message target. The service metadata MUST be a URL Safe string.",
+        "description" : "The Response Service metadata defines the service under which the response message should be sent. It is combined with the Response Action metadata to provide a complete domain-level message target. The Response Service metadata MUST be a URL Safe string.",
         "required" : true,
         "schema" : {
           "type" : "string"
@@ -2460,7 +2454,7 @@
       "rAction" : {
         "name" : "rAction",
         "in" : "path",
-        "description" : "The Action metadata defines the action of the service under which the message should be sent. It is combined with the Service metadata to provide a complete domain-level target of the message. The action metadata MUST be a URL Safe string.",
+        "description" : "The Response Action metadata defines the action of the service under which the response message should be sent. It is combined with the Response Service metadata to provide a complete domain-level target of the response message. The Response Action metadata MUST be a URL Safe string.",
         "required" : true,
         "schema" : {
           "type" : "string"
@@ -2654,7 +2648,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
@@ -2864,7 +2858,7 @@
                   "InternalServerError" : {
                     "value" : {
                       "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md/internal-server-error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
                       "status" : 500,
                       "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
