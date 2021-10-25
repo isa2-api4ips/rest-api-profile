@@ -1,19 +1,44 @@
 {
   "components" : {
     "schemas" : {
-      "PayloadBody" : {
+      "MessageReferenceList" : {
+        "title" : "A Message Reference object defined by the ISA² IPS REST API Messaging API Specification",
+        "required" : [ "messageReferenceList" ],
         "type" : "object",
         "properties" : {
-          "payloads" : {
+          "messageReferenceList" : {
             "type" : "array",
+            "description" : "List of message references.",
             "items" : {
-              "type" : "string",
-              "description" : "Array of messaging payloads",
-              "format" : "binary"
+              "$ref" : "#/components/schemas/MessageReference"
             }
+          },
+          "count" : {
+            "type" : "integer",
+            "description" : "Count of all messages",
+            "format" : "int32"
+          },
+          "limit" : {
+            "type" : "integer",
+            "description" : "limit number of references.",
+            "format" : "int32"
+          },
+          "offset" : {
+            "type" : "integer",
+            "description" : "offset of references.",
+            "format" : "int32"
           }
         },
-        "description" : "Object holds multipart/mixed array of payloads"
+        "description" : "A Message Reference object to be used when multiple messages could be retrieved from an API operation",
+        "$id" : "https://raw.githubusercontent.com/isa2-api4ips/rest-api-profile/main/messaging-api-specification/components/schemas/message-reference-list.json",
+        "$schema" : "https://json-schema.org/draft/2020-12/schema"
+      },
+      "jws-compact" : {
+        "title" : "JWT token.",
+        "pattern" : "^[A-Za-z0-9_-]+(?:\\.[A-Za-z0-9_-]+){2}$",
+        "type" : "string",
+        "description" : "The JWS compact representation schema defines the string pattern as a regular expression, denoting the structure a JWS compact token MUST follow to be a valid compact JWS Representation. It is used for defining the value of the Original-Sender token.",
+        "format" : "jws-compact"
       },
       "SignalMessage" : {
         "title" : "A Signal message which extends Problem object (RFC 7807) defined by the ISA² IPS REST API Core Profile",
@@ -58,44 +83,12 @@
           }
         },
         "description" : "A Signal message which extends Problem object (RFC 7807) defined by the ISA² IPS REST API Core Profile",
-        "$id" : "https://joinup.ec.europa.eu/collection/api4dt/solution/.../messaging.schema.json",
-        "$schema" : "https://json-schema.org/draft/2020-12/schema"
-      },
-      "MessageReferenceList" : {
-        "title" : "A Message Reference object defined by the ISA² IPS REST API Messaging API Specification",
-        "required" : [ "messageReferenceList" ],
-        "type" : "object",
-        "properties" : {
-          "messageReferenceList" : {
-            "type" : "array",
-            "description" : "List of message references.",
-            "items" : {
-              "$ref" : "#/components/schemas/MessageReference"
-            }
-          },
-          "count" : {
-            "type" : "integer",
-            "description" : "Count of all messages",
-            "format" : "int32"
-          },
-          "limit" : {
-            "type" : "integer",
-            "description" : "limit number of references.",
-            "format" : "int32"
-          },
-          "offset" : {
-            "type" : "integer",
-            "description" : "offset of references.",
-            "format" : "int32"
-          }
-        },
-        "description" : "A Message Reference object to be used when multiple messages could be retrieved from an API operation",
-        "$id" : "https://joinup.ec.europa.eu/collection/api4dt/solution/.../message-reference-schema-list.json",
+        "$id" : "https://raw.githubusercontent.com/isa2-api4ips/rest-api-profile/main/messaging-api-specification/components/schemas/signal-message.json",
         "$schema" : "https://json-schema.org/draft/2020-12/schema"
       },
       "MessageReference" : {
         "title" : "A Message Reference object defined by the ISA² IPS REST API Messaging API Specification",
-        "required" : [ "action", "messageId", "service" ],
+        "required" : [ "action", "href", "messageId", "service" ],
         "type" : "object",
         "properties" : {
           "messageId" : {
@@ -117,48 +110,55 @@
           }
         },
         "description" : "A Message Reference object to be used when multiple messages could be retrieved from an API operation",
-        "$id" : "https://joinup.ec.europa.eu/collection/api4dt/solution/.../message-reference-schema.json",
+        "$id" : "https://raw.githubusercontent.com/isa2-api4ips/rest-api-profile/main/messaging-api-specification/components/schemas/message-reference.json",
         "$schema" : "https://json-schema.org/draft/2020-12/schema"
       }
     },
     "parameters" : {
+      "rMessageId" : {
+        "name" : "rMessageId",
+        "in" : "path",
+        "description" : "The identifier of the response message being submitted. It MUST be generated by the client submitting the response message.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "rService" : {
+        "name" : "rService",
+        "in" : "path",
+        "description" : "The Service metadata defines the service under which the message should be sent. It is combined with the Action metadata to provide a complete domain-level message target. The service metadata MUST be a URL Safe string.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "Response-Webhook" : {
+        "name" : "Response-Webhook",
+        "in" : "header",
+        "description" : "The Response-Webhook provides the callback URL that the server MUST use for sending a response. It is required when implementing the \"Send Message with Asynchronous Response – Push and Webhook Push\" exchange pattern.",
+        "schema" : {
+          "type" : "string",
+          "format" : "uri"
+        }
+      },
+      "rAction" : {
+        "name" : "rAction",
+        "in" : "path",
+        "description" : "The Action metadata defines the action of the service under which the message should be sent. It is combined with the Service metadata to provide a complete domain-level target of the message. The action metadata MUST be a URL Safe string.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
       "Original-Sender" : {
         "name" : "Original-Sender",
         "in" : "header",
         "description" : "The Original Sender represents the authenticated entity acting as the user that sends the message using the client. Following the API Core Profile, the original sender MUST be represented with an OpenID Connect token, in the form of Compact JWT Token.",
         "schema" : {
-          "$ref" : "../api-core-profile/components.json#/schemas/jws-compact-detached"
+          "$ref" : "#/components/schemas/jws-compact"
         },
         "example" : "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9.eyJzdWIiOiIxM0NTY3ODkwIiwibmIiwiaWF0IoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
-      },
-      "Final-Recipient" : {
-        "name" : "Final-Recipient",
-        "in" : "header",
-        "description" : "The Final Recipient is the entity for whom the message is sent. Can be a single identifier or a set of identifiers, as described in the Recipient Addressing Schemes section of the specification. The representation of the final recipient is out of scope of the current specification.",
-        "schema" : {
-          "type" : "string"
-        },
-        "example" : "9999::333222111"
-      },
-      "Timestamp" : {
-        "name" : "Timestamp",
-        "in" : "header",
-        "description" : "The Timestamp is the exact date and time at which the message was sent. It is provided by the client and verified by the server.",
-        "schema" : {
-          "type" : "string",
-          "format" : "date-time"
-        },
-        "example" : "2021-06-17T08:30:00Z"
-      },
-      "messageId" : {
-        "name" : "messageId",
-        "in" : "path",
-        "description" : "The MessageId is the unique identifier of the message submitted. It MUST be defined by the client. It is used for reliable messaging for guaranteeing the at-most-once message submission (no duplicate message-ids are allowed by the server implementing the API).",
-        "required" : true,
-        "schema" : {
-          "type" : "string"
-        },
-        "example" : "dde12f67-c391-4851-8fa2-c07dd8532efd"
       },
       "service" : {
         "name" : "service",
@@ -169,6 +169,25 @@
           "type" : "string"
         },
         "example" : "dsd-service"
+      },
+      "Final-Recipient" : {
+        "name" : "Final-Recipient",
+        "in" : "header",
+        "description" : "The Final Recipient is the entity for whom the message is sent. Can be a single identifier or a set of identifiers, as described in the Recipient Addressing Schemes section of the specification. The representation of the final recipient is out of scope of the current specification.",
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "9999::333222111"
+      },
+      "messageId" : {
+        "name" : "messageId",
+        "in" : "path",
+        "description" : "The MessageId is the unique identifier of the message submitted. It MUST be defined by the client. It is used for reliable messaging for guaranteeing the at-most-once message submission (no duplicate message-ids are allowed by the server implementing the API).",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "dde12f67-c391-4851-8fa2-c07dd8532efd"
       },
       "action" : {
         "name" : "action",
@@ -189,62 +208,39 @@
           "format" : "uri"
         }
       },
-      "Response-Webhook" : {
-        "name" : "Response-Webhook",
+      "Timestamp" : {
+        "name" : "Timestamp",
         "in" : "header",
-        "description" : "The Response-Webhook provides the callback URL that the server MUST use for sending a response. It is required when implementing the \"Send Message with Asynchronous Response – Push and Webhook Push\" exchange pattern.",
+        "description" : "The Timestamp is the exact date and time at which the message was sent. It is provided by the client and verified by the server.",
         "schema" : {
           "type" : "string",
-          "format" : "uri"
-        }
-      },
-      "rMessageId" : {
-        "name" : "rMessageId",
-        "in" : "path",
-        "description" : "The identifier of the response message being submitted. It MUST be generated by the client submitting the response message.",
-        "required" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      },
-      "rService" : {
-        "name" : "rService",
-        "in" : "path",
-        "description" : "The Service metadata defines the service under which the message should be sent. It is combined with the Action metadata to provide a complete domain-level message target. The service metadata MUST be a URL Safe string.",
-        "required" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      },
-      "rAction" : {
-        "name" : "rAction",
-        "in" : "path",
-        "description" : "The Action metadata defines the action of the service under which the message should be sent. It is combined with the Service metadata to provide a complete domain-level target of the message. The action metadata MUST be a URL Safe string.",
-        "required" : true,
-        "schema" : {
-          "type" : "string"
-        }
+          "format" : "date-time"
+        },
+        "example" : "2021-06-17T08:30:00Z"
       }
     },
     "headers" : {
       "Original-Sender" : {
         "description" : "The Original Sender represents the authenticated entity acting as the user that sends the message using the client. Following the API Core Profile, the original sender MUST be represented with an OpenID Connect token, in the form of Compact JWT Token.",
         "schema" : {
-          "$ref" : "../api-core-profile/components.json#/schemas/jws-compact-detached"
-        }
+          "$ref" : "#/components/schemas/jws-compact"
+        },
+        "example" : "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9.eyJzdWIiOiIxM0NTY3ODkwIiwibmIiwiaWF0IoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
       },
       "Final-Recipient" : {
         "description" : "The Final Recipient is the entity for whom the message is sent. Can be a single identifier or a set of identifiers, as described in the Recipient Addressing Schemes section of the specification. The representation of the final recipient is out of scope of the current specification.",
         "schema" : {
           "type" : "string"
-        }
+        },
+        "example" : "9999::333222111"
       },
       "Timestamp" : {
         "description" : "The Timestamp is the exact date and time at which the message was sent. It is provided by the client and verified by the server.",
         "schema" : {
           "type" : "string",
           "format" : "date-time"
-        }
+        },
+        "example" : "2021-06-17T08:30:00Z"
       }
     }
   }

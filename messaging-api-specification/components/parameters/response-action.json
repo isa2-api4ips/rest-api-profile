@@ -1,10 +1,9 @@
 {
-  "name": "rAction",
-  "in": "path",
-  "description": "The Response Action metadata defines the Action under which the message is sent. It is combined with the Action metadata to provide a complete domain-level message target. The Action metadata MUST be a URL Safe string.",
-  "required": true,
-  "schema": {
-    "type": "string"
-  },
-  "example": "dsd-response-action"
+  "name" : "rAction",
+  "in" : "path",
+  "description" : "The Action metadata defines the action of the service under which the message should be sent. It is combined with the Service metadata to provide a complete domain-level target of the message. The action metadata MUST be a URL Safe string.",
+  "required" : true,
+  "schema" : {
+    "type" : "string"
+  }
 }
