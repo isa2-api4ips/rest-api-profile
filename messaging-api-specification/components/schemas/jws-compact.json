@@ -1,7 +1,9 @@
 {
   "title" : "JWT token.",
   "pattern" : "^[A-Za-z0-9_-]+(?:\\.[A-Za-z0-9_-]+){2}$",
-  "type" : "string",
   "description" : "The JWS compact representation schema defines the string pattern as a regular expression, denoting the structure a JWS compact token MUST follow to be a valid compact JWS Representation. It is used for defining the value of the Original-Sender token.",
-  "format" : "jws-compact"
+  "format" : "jws-compact",
+  "$id" : "https://raw.githubusercontent.com/isa2-api4ips/rest-api-profile/main/messaging-api-specification/components/schemas/jws-compact.json",
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "type" : "string"
 }

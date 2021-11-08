@@ -1,27 +1,27 @@
 {
   "title" : "A Message Reference object defined by the ISA² IPS REST API Messaging API Specification",
   "required" : [ "action", "href", "messageId", "service" ],
-  "type" : "object",
   "properties" : {
     "messageId" : {
-      "type" : "string",
-      "description" : "The unique identifier of the message."
+      "description" : "The unique identifier of the message.",
+      "type" : "string"
     },
     "service" : {
-      "type" : "string",
-      "description" : "A representation of the service the message is submitted to."
+      "description" : "A representation of the service the message is submitted to.",
+      "type" : "string"
     },
     "action" : {
-      "type" : "string",
-      "description" : "A representation of the action related to the service the message is submitted to."
+      "description" : "A representation of the action related to the service the message is submitted to.",
+      "type" : "string"
     },
     "href" : {
-      "type" : "string",
       "description" : "The direct link for getting the specific message",
-      "format" : "uri-reference"
+      "format" : "uri-reference",
+      "type" : "string"
     }
   },
   "description" : "A Message Reference object to be used when multiple messages could be retrieved from an API operation",
   "$id" : "https://raw.githubusercontent.com/isa2-api4ips/rest-api-profile/main/messaging-api-specification/components/schemas/message-reference.json",
-  "$schema" : "https://json-schema.org/draft/2020-12/schema"
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "type" : "object"
 }
