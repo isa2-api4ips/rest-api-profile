@@ -23,9 +23,6 @@
     "url" : "https://joinup.ec.europa.eu/collection/api4dt/solution/..."
   },
   "tags" : [ {
-    "name" : "Pull Message",
-    "description" : "This endpoint returns a message for a given service, action and message identifier"
-  }, {
     "name" : "Response Message Submission",
     "description" : "The endpoints defined in this section enable pushing or signalling the availability of responses to initial messages to a Sever or Webhook Server"
   }, {
@@ -40,6 +37,9 @@
   }, {
     "name" : "Response Message Reference List",
     "description" : "The endpoints return a list of response message references available for pulling"
+  }, {
+    "name" : "Pull Message",
+    "description" : "The endpoint returns a message for a given service, action and message identifier"
   } ],
   "paths" : {
     "/v1/messaging/{service}/{action}/{messageId}" : {
@@ -90,7 +90,7 @@
             }
           },
           "400" : {
-            "description" : "Sent when the message fails the validation process",
+            "description" : "Sent when the server cannot resolve/match the pulling user to a final recipient",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
@@ -102,52 +102,20 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "ValidationFailed" : {
+                  "NoFinalRecipient" : {
                     "value" : {
-                      "title" : "Validation Failed",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-validation-failed",
+                      "title" : "No final recipient configured for the pulling user",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-final-recipient",
                       "status" : 400,
-                      "detail" : "Sent when the message fails the validation process"
-                    }
-                  },
-                  "InvalidMessageId" : {
-                    "value" : {
-                      "title" : "Invalid or Duplicate Message ID",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-id",
-                      "status" : 400,
-                      "detail" : "Sent when the MessageId is not valid"
-                    }
-                  },
-                  "InvalidSignature" : {
-                    "value" : {
-                      "title" : "Invalid Message Signature",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-signature",
-                      "status" : 400,
-                      "detail" : "Sent when the message signature cannot be verified"
-                    }
-                  },
-                  "InvalidAddressing" : {
-                    "value" : {
-                      "title" : "Invalid Addressing",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-addressing",
-                      "status" : 400,
-                      "detail" : "Sent when the Original Sender or Final Recipient(s) cannot be resolved"
-                    }
-                  },
-                  "InvalidMessageFormat" : {
-                    "value" : {
-                      "title" : "Invalid Message Format",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-format",
-                      "status" : 400,
-                      "detail" : "Sent when the message format does not adhere to the specification"
+                      "detail" : "Sent when the server cannot resolve/match the pulling user to a final recipient"
                     }
                   }
                 }
               }
             }
           },
-          "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
+          "404" : {
+            "description" : "Sent when no message is found that maps to the pull request",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
@@ -159,12 +127,37 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "InternalServerError" : {
+                  "NoMessageFound" : {
                     "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
-                      "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
+                      "title" : "No Message Found",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-message-found",
+                      "status" : 404,
+                      "detail" : "Sent when no message is found that maps to the pull request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Sent when the pull request is unauthorized",
+            "headers" : {
+              "Edel-Message-Sig" : {
+                "$ref" : "#/components/headers/Edel-Message-Sig"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                },
+                "examples" : {
+                  "Unauthorized" : {
+                    "value" : {
+                      "title" : "Unauthorized",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
+                      "status" : 401,
+                      "detail" : "Sent when the pull request is unauthorized"
                     }
                   }
                 }
@@ -345,15 +338,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "df2f83a3-f776-4e31-9def-64647316bfb2",
+                    "messageId" : "7485eb6e-7bcc-4312-82b1-a5889c532ae8",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/df2f83a3-f776-4e31-9def-64647316bfb2"
+                    "href" : "/my-service/my-action/7485eb6e-7bcc-4312-82b1-a5889c532ae8"
                   }, {
-                    "messageId" : "b9d515c6-6fc3-4c67-890a-5ae120f4ae95",
+                    "messageId" : "1caa81ce-d0ff-49f0-928d-7b3975057494",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/b9d515c6-6fc3-4c67-890a-5ae120f4ae95"
+                    "href" : "/my-service/my-action/1caa81ce-d0ff-49f0-928d-7b3975057494"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -362,7 +355,7 @@
             }
           },
           "400" : {
-            "description" : "Sent when the message fails the validation process",
+            "description" : "Sent when the server cannot resolve/match the pulling user to a final recipient",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
@@ -374,46 +367,6 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "ValidationFailed" : {
-                    "value" : {
-                      "title" : "Validation Failed",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-validation-failed",
-                      "status" : 400,
-                      "detail" : "Sent when the message fails the validation process"
-                    }
-                  },
-                  "InvalidMessageId" : {
-                    "value" : {
-                      "title" : "Invalid or Duplicate Message ID",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-id",
-                      "status" : 400,
-                      "detail" : "Sent when the MessageId is not valid"
-                    }
-                  },
-                  "InvalidSignature" : {
-                    "value" : {
-                      "title" : "Invalid Message Signature",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-signature",
-                      "status" : 400,
-                      "detail" : "Sent when the message signature cannot be verified"
-                    }
-                  },
-                  "InvalidAddressing" : {
-                    "value" : {
-                      "title" : "Invalid Addressing",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-addressing",
-                      "status" : 400,
-                      "detail" : "Sent when the Original Sender or Final Recipient(s) cannot be resolved"
-                    }
-                  },
-                  "InvalidMessageFormat" : {
-                    "value" : {
-                      "title" : "Invalid Message Format",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-format",
-                      "status" : 400,
-                      "detail" : "Sent when the message format does not adhere to the specification"
-                    }
-                  },
                   "NoFinalRecipient" : {
                     "value" : {
                       "title" : "No final recipient configured for the pulling user",
@@ -470,31 +423,6 @@
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
-            "headers" : {
-              "Edel-Message-Sig" : {
-                "$ref" : "#/components/headers/Edel-Message-Sig"
-              }
-            },
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                },
-                "examples" : {
-                  "InternalServerError" : {
-                    "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
-                      "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
                   }
                 }
@@ -558,7 +486,7 @@
             }
           },
           "400" : {
-            "description" : "Sent when the message fails the validation process",
+            "description" : "Sent when the server cannot resolve/match the pulling user to a final recipient",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
@@ -570,52 +498,20 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "ValidationFailed" : {
+                  "NoFinalRecipient" : {
                     "value" : {
-                      "title" : "Validation Failed",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-validation-failed",
+                      "title" : "No final recipient configured for the pulling user",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-final-recipient",
                       "status" : 400,
-                      "detail" : "Sent when the message fails the validation process"
-                    }
-                  },
-                  "InvalidMessageId" : {
-                    "value" : {
-                      "title" : "Invalid or Duplicate Message ID",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-id",
-                      "status" : 400,
-                      "detail" : "Sent when the MessageId is not valid"
-                    }
-                  },
-                  "InvalidSignature" : {
-                    "value" : {
-                      "title" : "Invalid Message Signature",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-signature",
-                      "status" : 400,
-                      "detail" : "Sent when the message signature cannot be verified"
-                    }
-                  },
-                  "InvalidAddressing" : {
-                    "value" : {
-                      "title" : "Invalid Addressing",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-addressing",
-                      "status" : 400,
-                      "detail" : "Sent when the Original Sender or Final Recipient(s) cannot be resolved"
-                    }
-                  },
-                  "InvalidMessageFormat" : {
-                    "value" : {
-                      "title" : "Invalid Message Format",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-format",
-                      "status" : 400,
-                      "detail" : "Sent when the message format does not adhere to the specification"
+                      "detail" : "Sent when the server cannot resolve/match the pulling user to a final recipient"
                     }
                   }
                 }
               }
             }
           },
-          "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
+          "404" : {
+            "description" : "Sent when no message is found that maps to the pull request",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
@@ -627,12 +523,37 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "InternalServerError" : {
+                  "NoMessageFound" : {
                     "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
-                      "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
+                      "title" : "No Message Found",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-message-found",
+                      "status" : 404,
+                      "detail" : "Sent when no message is found that maps to the pull request"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Sent when the pull request is unauthorized",
+            "headers" : {
+              "Edel-Message-Sig" : {
+                "$ref" : "#/components/headers/Edel-Message-Sig"
+              }
+            },
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                },
+                "examples" : {
+                  "Unauthorized" : {
+                    "value" : {
+                      "title" : "Unauthorized",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
+                      "status" : 401,
+                      "detail" : "Sent when the pull request is unauthorized"
                     }
                   }
                 }
@@ -822,15 +743,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "7ae1d974-f814-457e-8d6c-e12f50e7b5c5",
+                    "messageId" : "69d6cc02-7964-47bb-be76-87c1040f7327",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/7ae1d974-f814-457e-8d6c-e12f50e7b5c5"
+                    "href" : "/my-service/my-action/69d6cc02-7964-47bb-be76-87c1040f7327"
                   }, {
-                    "messageId" : "c02b91c3-6d29-4cb8-9c95-7c16c4548bbf",
+                    "messageId" : "af908a3f-b3aa-449f-8b30-1b9572fb8898",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/c02b91c3-6d29-4cb8-9c95-7c16c4548bbf"
+                    "href" : "/my-service/my-action/af908a3f-b3aa-449f-8b30-1b9572fb8898"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -839,7 +760,7 @@
             }
           },
           "400" : {
-            "description" : "Sent when the message fails the validation process",
+            "description" : "Sent when the server cannot resolve/match the pulling user to a final recipient",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
@@ -851,46 +772,6 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "ValidationFailed" : {
-                    "value" : {
-                      "title" : "Validation Failed",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-validation-failed",
-                      "status" : 400,
-                      "detail" : "Sent when the message fails the validation process"
-                    }
-                  },
-                  "InvalidMessageId" : {
-                    "value" : {
-                      "title" : "Invalid or Duplicate Message ID",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-id",
-                      "status" : 400,
-                      "detail" : "Sent when the MessageId is not valid"
-                    }
-                  },
-                  "InvalidSignature" : {
-                    "value" : {
-                      "title" : "Invalid Message Signature",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-signature",
-                      "status" : 400,
-                      "detail" : "Sent when the message signature cannot be verified"
-                    }
-                  },
-                  "InvalidAddressing" : {
-                    "value" : {
-                      "title" : "Invalid Addressing",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-addressing",
-                      "status" : 400,
-                      "detail" : "Sent when the Original Sender or Final Recipient(s) cannot be resolved"
-                    }
-                  },
-                  "InvalidMessageFormat" : {
-                    "value" : {
-                      "title" : "Invalid Message Format",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-format",
-                      "status" : 400,
-                      "detail" : "Sent when the message format does not adhere to the specification"
-                    }
-                  },
                   "NoFinalRecipient" : {
                     "value" : {
                       "title" : "No final recipient configured for the pulling user",
@@ -947,31 +828,6 @@
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
-            "headers" : {
-              "Edel-Message-Sig" : {
-                "$ref" : "#/components/headers/Edel-Message-Sig"
-              }
-            },
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                },
-                "examples" : {
-                  "InternalServerError" : {
-                    "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
-                      "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
                   }
                 }
@@ -1011,15 +867,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "ef21447c-b879-44d7-a8df-5fb30483c6dd",
+                    "messageId" : "6956adaf-1d88-4eb0-8e30-967e2225b4e8",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/ef21447c-b879-44d7-a8df-5fb30483c6dd"
+                    "href" : "/my-service/my-action/6956adaf-1d88-4eb0-8e30-967e2225b4e8"
                   }, {
-                    "messageId" : "687f8c3e-7f22-4013-bbe9-1e35d2dc73b4",
+                    "messageId" : "eb8927d4-2320-4872-a186-cf6fb34228a4",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/687f8c3e-7f22-4013-bbe9-1e35d2dc73b4"
+                    "href" : "/my-service/my-action/eb8927d4-2320-4872-a186-cf6fb34228a4"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1028,7 +884,7 @@
             }
           },
           "400" : {
-            "description" : "Sent when the message fails the validation process",
+            "description" : "Sent when the server cannot resolve/match the pulling user to a final recipient",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
@@ -1040,46 +896,6 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "ValidationFailed" : {
-                    "value" : {
-                      "title" : "Validation Failed",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-validation-failed",
-                      "status" : 400,
-                      "detail" : "Sent when the message fails the validation process"
-                    }
-                  },
-                  "InvalidMessageId" : {
-                    "value" : {
-                      "title" : "Invalid or Duplicate Message ID",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-id",
-                      "status" : 400,
-                      "detail" : "Sent when the MessageId is not valid"
-                    }
-                  },
-                  "InvalidSignature" : {
-                    "value" : {
-                      "title" : "Invalid Message Signature",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-signature",
-                      "status" : 400,
-                      "detail" : "Sent when the message signature cannot be verified"
-                    }
-                  },
-                  "InvalidAddressing" : {
-                    "value" : {
-                      "title" : "Invalid Addressing",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-addressing",
-                      "status" : 400,
-                      "detail" : "Sent when the Original Sender or Final Recipient(s) cannot be resolved"
-                    }
-                  },
-                  "InvalidMessageFormat" : {
-                    "value" : {
-                      "title" : "Invalid Message Format",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-format",
-                      "status" : 400,
-                      "detail" : "Sent when the message format does not adhere to the specification"
-                    }
-                  },
                   "NoFinalRecipient" : {
                     "value" : {
                       "title" : "No final recipient configured for the pulling user",
@@ -1136,31 +952,6 @@
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
-            "headers" : {
-              "Edel-Message-Sig" : {
-                "$ref" : "#/components/headers/Edel-Message-Sig"
-              }
-            },
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                },
-                "examples" : {
-                  "InternalServerError" : {
-                    "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
-                      "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
                   }
                 }
@@ -1202,15 +993,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "f6c1aa83-dd63-4005-9e04-0aeff51de175",
+                    "messageId" : "806ed3ec-a0bc-4316-b8d7-5efb34c11121",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/f6c1aa83-dd63-4005-9e04-0aeff51de175"
+                    "href" : "/my-service/my-action/806ed3ec-a0bc-4316-b8d7-5efb34c11121"
                   }, {
-                    "messageId" : "e3614e80-d2a5-4694-98f1-49dad6184d40",
+                    "messageId" : "372aa590-e721-4db0-960d-5ab4d5a57618",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/e3614e80-d2a5-4694-98f1-49dad6184d40"
+                    "href" : "/my-service/my-action/372aa590-e721-4db0-960d-5ab4d5a57618"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1219,7 +1010,7 @@
             }
           },
           "400" : {
-            "description" : "Sent when the message fails the validation process",
+            "description" : "Sent when the server cannot resolve/match the pulling user to a final recipient",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
@@ -1231,46 +1022,6 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "ValidationFailed" : {
-                    "value" : {
-                      "title" : "Validation Failed",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-validation-failed",
-                      "status" : 400,
-                      "detail" : "Sent when the message fails the validation process"
-                    }
-                  },
-                  "InvalidMessageId" : {
-                    "value" : {
-                      "title" : "Invalid or Duplicate Message ID",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-id",
-                      "status" : 400,
-                      "detail" : "Sent when the MessageId is not valid"
-                    }
-                  },
-                  "InvalidSignature" : {
-                    "value" : {
-                      "title" : "Invalid Message Signature",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-signature",
-                      "status" : 400,
-                      "detail" : "Sent when the message signature cannot be verified"
-                    }
-                  },
-                  "InvalidAddressing" : {
-                    "value" : {
-                      "title" : "Invalid Addressing",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-addressing",
-                      "status" : 400,
-                      "detail" : "Sent when the Original Sender or Final Recipient(s) cannot be resolved"
-                    }
-                  },
-                  "InvalidMessageFormat" : {
-                    "value" : {
-                      "title" : "Invalid Message Format",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-format",
-                      "status" : 400,
-                      "detail" : "Sent when the message format does not adhere to the specification"
-                    }
-                  },
                   "NoFinalRecipient" : {
                     "value" : {
                       "title" : "No final recipient configured for the pulling user",
@@ -1327,31 +1078,6 @@
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
-            "headers" : {
-              "Edel-Message-Sig" : {
-                "$ref" : "#/components/headers/Edel-Message-Sig"
-              }
-            },
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                },
-                "examples" : {
-                  "InternalServerError" : {
-                    "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
-                      "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
                   }
                 }
@@ -1387,15 +1113,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "3c897c3d-2c36-4cf2-a878-96d78be0f7e1",
+                    "messageId" : "f8cd1cd5-d9ba-490e-890b-3f910b9566eb",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/3c897c3d-2c36-4cf2-a878-96d78be0f7e1"
+                    "href" : "/my-service/my-action/f8cd1cd5-d9ba-490e-890b-3f910b9566eb"
                   }, {
-                    "messageId" : "95920034-5496-489a-b2da-55549903f217",
+                    "messageId" : "03e8b540-4cf8-41b7-be11-1a00d1c4902e",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/95920034-5496-489a-b2da-55549903f217"
+                    "href" : "/my-service/my-action/03e8b540-4cf8-41b7-be11-1a00d1c4902e"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1404,7 +1130,7 @@
             }
           },
           "400" : {
-            "description" : "Sent when the message fails the validation process",
+            "description" : "Sent when the server cannot resolve/match the pulling user to a final recipient",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
@@ -1416,46 +1142,6 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "ValidationFailed" : {
-                    "value" : {
-                      "title" : "Validation Failed",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-validation-failed",
-                      "status" : 400,
-                      "detail" : "Sent when the message fails the validation process"
-                    }
-                  },
-                  "InvalidMessageId" : {
-                    "value" : {
-                      "title" : "Invalid or Duplicate Message ID",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-id",
-                      "status" : 400,
-                      "detail" : "Sent when the MessageId is not valid"
-                    }
-                  },
-                  "InvalidSignature" : {
-                    "value" : {
-                      "title" : "Invalid Message Signature",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-signature",
-                      "status" : 400,
-                      "detail" : "Sent when the message signature cannot be verified"
-                    }
-                  },
-                  "InvalidAddressing" : {
-                    "value" : {
-                      "title" : "Invalid Addressing",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-addressing",
-                      "status" : 400,
-                      "detail" : "Sent when the Original Sender or Final Recipient(s) cannot be resolved"
-                    }
-                  },
-                  "InvalidMessageFormat" : {
-                    "value" : {
-                      "title" : "Invalid Message Format",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-format",
-                      "status" : 400,
-                      "detail" : "Sent when the message format does not adhere to the specification"
-                    }
-                  },
                   "NoFinalRecipient" : {
                     "value" : {
                       "title" : "No final recipient configured for the pulling user",
@@ -1512,31 +1198,6 @@
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
-            "headers" : {
-              "Edel-Message-Sig" : {
-                "$ref" : "#/components/headers/Edel-Message-Sig"
-              }
-            },
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                },
-                "examples" : {
-                  "InternalServerError" : {
-                    "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
-                      "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
                   }
                 }
@@ -1570,15 +1231,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "f56d9fe8-18a5-431a-a095-ecc46b3f67ef",
+                    "messageId" : "afba6b06-bc13-47a1-a922-aa6f620f334b",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/f56d9fe8-18a5-431a-a095-ecc46b3f67ef"
+                    "href" : "/my-service/my-action/afba6b06-bc13-47a1-a922-aa6f620f334b"
                   }, {
-                    "messageId" : "d9f3dc4a-6bc2-45e8-a661-8342218b34fd",
+                    "messageId" : "d9353624-e43b-40ee-ab9d-1c9bfd61eb78",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/d9f3dc4a-6bc2-45e8-a661-8342218b34fd"
+                    "href" : "/my-service/my-action/d9353624-e43b-40ee-ab9d-1c9bfd61eb78"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1587,7 +1248,7 @@
             }
           },
           "400" : {
-            "description" : "Sent when the message fails the validation process",
+            "description" : "Sent when the server cannot resolve/match the pulling user to a final recipient",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
@@ -1599,46 +1260,6 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "ValidationFailed" : {
-                    "value" : {
-                      "title" : "Validation Failed",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-validation-failed",
-                      "status" : 400,
-                      "detail" : "Sent when the message fails the validation process"
-                    }
-                  },
-                  "InvalidMessageId" : {
-                    "value" : {
-                      "title" : "Invalid or Duplicate Message ID",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-id",
-                      "status" : 400,
-                      "detail" : "Sent when the MessageId is not valid"
-                    }
-                  },
-                  "InvalidSignature" : {
-                    "value" : {
-                      "title" : "Invalid Message Signature",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-signature",
-                      "status" : 400,
-                      "detail" : "Sent when the message signature cannot be verified"
-                    }
-                  },
-                  "InvalidAddressing" : {
-                    "value" : {
-                      "title" : "Invalid Addressing",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-addressing",
-                      "status" : 400,
-                      "detail" : "Sent when the Original Sender or Final Recipient(s) cannot be resolved"
-                    }
-                  },
-                  "InvalidMessageFormat" : {
-                    "value" : {
-                      "title" : "Invalid Message Format",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-format",
-                      "status" : 400,
-                      "detail" : "Sent when the message format does not adhere to the specification"
-                    }
-                  },
                   "NoFinalRecipient" : {
                     "value" : {
                       "title" : "No final recipient configured for the pulling user",
@@ -1695,31 +1316,6 @@
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
-            "headers" : {
-              "Edel-Message-Sig" : {
-                "$ref" : "#/components/headers/Edel-Message-Sig"
-              }
-            },
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                },
-                "examples" : {
-                  "InternalServerError" : {
-                    "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
-                      "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
                   }
                 }
@@ -1782,7 +1378,7 @@
             }
           },
           "400" : {
-            "description" : "Sent when the message fails the validation process",
+            "description" : "Sent when the server cannot resolve/match the pulling user to a final recipient",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
@@ -1794,46 +1390,6 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "ValidationFailed" : {
-                    "value" : {
-                      "title" : "Validation Failed",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-validation-failed",
-                      "status" : 400,
-                      "detail" : "Sent when the message fails the validation process"
-                    }
-                  },
-                  "InvalidMessageId" : {
-                    "value" : {
-                      "title" : "Invalid or Duplicate Message ID",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-id",
-                      "status" : 400,
-                      "detail" : "Sent when the MessageId is not valid"
-                    }
-                  },
-                  "InvalidSignature" : {
-                    "value" : {
-                      "title" : "Invalid Message Signature",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-signature",
-                      "status" : 400,
-                      "detail" : "Sent when the message signature cannot be verified"
-                    }
-                  },
-                  "InvalidAddressing" : {
-                    "value" : {
-                      "title" : "Invalid Addressing",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-addressing",
-                      "status" : 400,
-                      "detail" : "Sent when the Original Sender or Final Recipient(s) cannot be resolved"
-                    }
-                  },
-                  "InvalidMessageFormat" : {
-                    "value" : {
-                      "title" : "Invalid Message Format",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-format",
-                      "status" : 400,
-                      "detail" : "Sent when the message format does not adhere to the specification"
-                    }
-                  },
                   "NoFinalRecipient" : {
                     "value" : {
                       "title" : "No final recipient configured for the pulling user",
@@ -1890,31 +1446,6 @@
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
-            "headers" : {
-              "Edel-Message-Sig" : {
-                "$ref" : "#/components/headers/Edel-Message-Sig"
-              }
-            },
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                },
-                "examples" : {
-                  "InternalServerError" : {
-                    "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
-                      "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
                   }
                 }
@@ -2630,7 +2161,7 @@
             }
           },
           "400" : {
-            "description" : "Sent when the message fails the validation process",
+            "description" : "Sent when the server cannot resolve/match the pulling user to a final recipient",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
@@ -2642,46 +2173,6 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "ValidationFailed" : {
-                    "value" : {
-                      "title" : "Validation Failed",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-validation-failed",
-                      "status" : 400,
-                      "detail" : "Sent when the message fails the validation process"
-                    }
-                  },
-                  "InvalidMessageId" : {
-                    "value" : {
-                      "title" : "Invalid or Duplicate Message ID",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-id",
-                      "status" : 400,
-                      "detail" : "Sent when the MessageId is not valid"
-                    }
-                  },
-                  "InvalidSignature" : {
-                    "value" : {
-                      "title" : "Invalid Message Signature",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-message-signature",
-                      "status" : 400,
-                      "detail" : "Sent when the message signature cannot be verified"
-                    }
-                  },
-                  "InvalidAddressing" : {
-                    "value" : {
-                      "title" : "Invalid Addressing",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-addressing",
-                      "status" : 400,
-                      "detail" : "Sent when the Original Sender or Final Recipient(s) cannot be resolved"
-                    }
-                  },
-                  "InvalidMessageFormat" : {
-                    "value" : {
-                      "title" : "Invalid Message Format",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-format",
-                      "status" : 400,
-                      "detail" : "Sent when the message format does not adhere to the specification"
-                    }
-                  },
                   "NoFinalRecipient" : {
                     "value" : {
                       "title" : "No final recipient configured for the pulling user",
@@ -2738,31 +2229,6 @@
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
-            "headers" : {
-              "Edel-Message-Sig" : {
-                "$ref" : "#/components/headers/Edel-Message-Sig"
-              }
-            },
-            "content" : {
-              "application/problem+json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Problem"
-                },
-                "examples" : {
-                  "InternalServerError" : {
-                    "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
-                      "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
                     }
                   }
                 }
