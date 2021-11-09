@@ -46,7 +46,7 @@
       "get" : {
         "tags" : [ "Pull Message" ],
         "summary" : "Get Message Endpoint",
-        "description" : "This endpoint returns the message filed under a specific service and actionfollowing the format for the User Message. ",
+        "description" : "This endpoint returns the message filed under a specific service and actionfollowing the format for the User Message.",
         "operationId" : "GetMessageId",
         "parameters" : [ {
           "$ref" : "#/components/parameters/messageId"
@@ -321,7 +321,7 @@
       "get" : {
         "tags" : [ "Message Reference List" ],
         "summary" : "Get Message Reference List Endpoint",
-        "description" : "This endpoint returns a list of message references available for pulling, following the Message Reference schema. ",
+        "description" : "This endpoint returns a list of message references available for pulling, following the Message Reference schema.",
         "operationId" : "GetMessageReferenceListId",
         "responses" : {
           "202" : {
@@ -338,15 +338,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "7485eb6e-7bcc-4312-82b1-a5889c532ae8",
+                    "messageId" : "eb6df103-728a-47bb-be9f-54f6db8bc8f0",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/7485eb6e-7bcc-4312-82b1-a5889c532ae8"
+                    "href" : "/my-service/my-action/eb6df103-728a-47bb-be9f-54f6db8bc8f0"
                   }, {
-                    "messageId" : "1caa81ce-d0ff-49f0-928d-7b3975057494",
+                    "messageId" : "8e649c28-9c14-4178-b531-cccb756b943a",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/1caa81ce-d0ff-49f0-928d-7b3975057494"
+                    "href" : "/my-service/my-action/8e649c28-9c14-4178-b531-cccb756b943a"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -743,15 +743,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "69d6cc02-7964-47bb-be76-87c1040f7327",
+                    "messageId" : "35c3d8cc-55f8-46a1-9b1f-cf0d1465e86a",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/69d6cc02-7964-47bb-be76-87c1040f7327"
+                    "href" : "/my-service/my-action/35c3d8cc-55f8-46a1-9b1f-cf0d1465e86a"
                   }, {
-                    "messageId" : "af908a3f-b3aa-449f-8b30-1b9572fb8898",
+                    "messageId" : "bb029268-adf7-4859-8ed5-f3c0bc895861",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/af908a3f-b3aa-449f-8b30-1b9572fb8898"
+                    "href" : "/my-service/my-action/bb029268-adf7-4859-8ed5-f3c0bc895861"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -867,15 +867,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "6956adaf-1d88-4eb0-8e30-967e2225b4e8",
+                    "messageId" : "9966eb5a-5a5b-4e26-9a88-4562bfa7d3be",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/6956adaf-1d88-4eb0-8e30-967e2225b4e8"
+                    "href" : "/my-service/my-action/9966eb5a-5a5b-4e26-9a88-4562bfa7d3be"
                   }, {
-                    "messageId" : "eb8927d4-2320-4872-a186-cf6fb34228a4",
+                    "messageId" : "f28232fd-07d1-4924-85b2-a8a7d1e20475",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/eb8927d4-2320-4872-a186-cf6fb34228a4"
+                    "href" : "/my-service/my-action/f28232fd-07d1-4924-85b2-a8a7d1e20475"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -993,15 +993,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "806ed3ec-a0bc-4316-b8d7-5efb34c11121",
+                    "messageId" : "d1a32354-c918-449a-a9fa-54c37d348c3d",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/806ed3ec-a0bc-4316-b8d7-5efb34c11121"
+                    "href" : "/my-service/my-action/d1a32354-c918-449a-a9fa-54c37d348c3d"
                   }, {
-                    "messageId" : "372aa590-e721-4db0-960d-5ab4d5a57618",
+                    "messageId" : "46c7093e-1b71-4aec-862a-7d72afb5e403",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/372aa590-e721-4db0-960d-5ab4d5a57618"
+                    "href" : "/my-service/my-action/46c7093e-1b71-4aec-862a-7d72afb5e403"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1113,15 +1113,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "f8cd1cd5-d9ba-490e-890b-3f910b9566eb",
+                    "messageId" : "80d68204-ada5-4f18-b96a-d8cd1d7c4698",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/f8cd1cd5-d9ba-490e-890b-3f910b9566eb"
+                    "href" : "/my-service/my-action/80d68204-ada5-4f18-b96a-d8cd1d7c4698"
                   }, {
-                    "messageId" : "03e8b540-4cf8-41b7-be11-1a00d1c4902e",
+                    "messageId" : "c7f86ac6-19ae-4088-90bb-c7bd4626485b",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/03e8b540-4cf8-41b7-be11-1a00d1c4902e"
+                    "href" : "/my-service/my-action/c7f86ac6-19ae-4088-90bb-c7bd4626485b"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1231,15 +1231,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "afba6b06-bc13-47a1-a922-aa6f620f334b",
+                    "messageId" : "331f2ca7-6515-4815-aaec-fcaef4cd892a",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/afba6b06-bc13-47a1-a922-aa6f620f334b"
+                    "href" : "/my-service/my-action/331f2ca7-6515-4815-aaec-fcaef4cd892a"
                   }, {
-                    "messageId" : "d9353624-e43b-40ee-ab9d-1c9bfd61eb78",
+                    "messageId" : "3483518a-743e-4503-8436-69d88401b415",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/d9353624-e43b-40ee-ab9d-1c9bfd61eb78"
+                    "href" : "/my-service/my-action/3483518a-743e-4503-8436-69d88401b415"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1328,7 +1328,7 @@
     "/v1/messaging/{messageId}/response/signal" : {
       "post" : {
         "tags" : [ "Response Message Submission" ],
-        "summary" : "Signal Submission Endpoint ",
+        "summary" : "Signal Submission Endpoint",
         "description" : "The Signal Submission endpoint is used for signalling the successfully pulled message or to response errors/warnings at receiving messages.",
         "operationId" : "SignalSubmissionId",
         "parameters" : [ {
@@ -1706,7 +1706,7 @@
             "type" : "string"
           },
           "instance" : {
-            "description" : "A URI reference that identifies the specific occurrence of the problem. It may or may not yieldfurther information if dereferenced.",
+            "description" : "A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.",
             "format" : "uri-reference",
             "type" : "string"
           }

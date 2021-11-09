@@ -38,7 +38,7 @@
             "type" : "string"
           },
           "instance" : {
-            "description" : "A URI reference that identifies the specific occurrence of the problem. It may or may not yieldfurther information if dereferenced.",
+            "description" : "A URI reference that identifies the specific occurrence of the problem. It may or may not yield further information if dereferenced.",
             "format" : "uri-reference",
             "type" : "string"
           }
