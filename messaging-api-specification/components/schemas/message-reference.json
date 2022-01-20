@@ -1,32 +1,27 @@
 {
-  "title": "A Message Reference object defined by the ISA² IPS REST API Messaging API Specification",
-  "required": [
-    "action",
-    "messageId",
-    "service"
-  ],
-  "type": "object",
-  "properties": {
-    "messageId": {
-      "type": "string",
-      "description": "The unique identifier of the message."
+  "title" : "A Message Reference object defined by the ISA² IPS REST API Messaging API Specification",
+  "required" : [ "action", "href", "messageId", "service" ],
+  "properties" : {
+    "messageId" : {
+      "description" : "The unique identifier of the message.",
+      "type" : "string"
     },
-    "service": {
-      "type": "string",
-      "description": "A representation of the service the message is submitted to."
+    "service" : {
+      "description" : "A representation of the service the message is submitted to.",
+      "type" : "string"
     },
-    "action": {
-      "type": "string",
-      "description": "A representation of the action related to the service the message is submitted to."
+    "action" : {
+      "description" : "A representation of the action related to the service the message is submitted to.",
+      "type" : "string"
     },
-    "href": {
-      "type": "string",
-      "description": "The direct link for getting the specific message",
-      "format": "uri-reference"
+    "href" : {
+      "description" : "The direct link for getting the specific message",
+      "format" : "uri-reference",
+      "type" : "string"
     }
   },
-  "description": "A Message Reference object to be used when multiple messages could be retrieved from an API operation",
-  "$id": "https://joinup.ec.europa.eu/collection/api4dt/solution/.../message-reference-schema.json",
-  "$schema": "https://json-schema.org/draft/2020-12/schema"
+  "description" : "A Message Reference object to be used when multiple messages could be retrieved from an API operation",
+  "$id" : "https://raw.githubusercontent.com/isa2-api4ips/rest-api-profile/main/messaging-api-specification/components/schemas/message-reference.json",
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "type" : "object"
 }
-

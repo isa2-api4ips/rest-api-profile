@@ -1,7 +1,9 @@
 {
-  "title": "The message-level and payload signature",
-  "pattern": "^[A-Za-z0-9_-]+((?:\\.[A-Za-z0-9_-]+){2}|(?:(\\.\\.)[A-Za-z0-9_-]+){1})",
-  "type": "string",
-  "description": "The JWS compact representation schema defines the string pattern as a regular expression, denoting the structure a JWS compact token MUST follow to be a valid compact JWS Representation. It is used for defining the value of the message-level signature and of the payload signature",
-  "format": "jws-compact-detached"
+  "title" : "The message-level and payload signature",
+  "pattern" : "^[A-Za-z0-9_-]+(?:(\\.\\.)[A-Za-z0-9_-]+){1}",
+  "description" : "The JWS compact representation schema defines the string pattern as a regular expression, denoting the structure a JWS compact token MUST follow to be a valid compact JWS Representation. It is used for defining the value of the message-level signature and of the payload signature",
+  "format" : "jws-compact-detached",
+  "$id" : "https://raw.githubusercontent.com/isa2-api4ips/rest-api-profile/main/api-core-profile/components/schemas/jws-compact-detached.json",
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "type" : "string"
 }

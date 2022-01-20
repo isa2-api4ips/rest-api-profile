@@ -1,10 +1,12 @@
 {
-  "properties": {
-    "name": {
-      "type": "string"
+  "properties" : {
+    "name" : {
+      "type" : "string"
     },
-    "url": {
-      "type": "string"
+    "url" : {
+      "format" : "url",
+      "type" : "string"
     }
-  }
+  },
+  "type" : "object"
 }

@@ -1,0 +1,8 @@
+{
+  "description" : "The Content-Disposition header, declaring the subpart as an attachment. MUST be Attachment Type ",
+  "required" : true,
+  "schema" : {
+    "type" : "string"
+  },
+  "example" : "Attachment"
+}
