@@ -140,57 +140,11 @@
         "name" : "Response-Webhook",
         "in" : "header",
         "description" : "The Response-Webhook provides the callback URL that the server MUST use for sending a response. It is required when implementing the \"Send Message with Asynchronous Response – Push and Webhook Push\" exchange pattern.",
+        "required" : false,
         "schema" : {
           "format" : "uri",
           "type" : "string"
         }
-      },
-      "Original-Sender" : {
-        "name" : "Original-Sender",
-        "in" : "header",
-        "description" : "The Original Sender represents the authenticated entity acting as the user that sends the message using the client. Following the API Core Profile, the original sender MUST be represented with an OpenID Connect token, in the form of Compact JWT Token.",
-        "schema" : {
-          "$ref" : "#/components/schemas/jws-compact"
-        },
-        "example" : "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9.eyJzdWIiOiIxM0NTY3ODkwIiwibmIiwiaWF0IoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
-      },
-      "Final-Recipient" : {
-        "name" : "Final-Recipient",
-        "in" : "header",
-        "description" : "The Final Recipient is the entity for whom the message is sent. Can be a single identifier or a set of identifiers, as described in the Recipient Addressing Schemes section of the specification. The representation of the final recipient is out of scope of the current specification.",
-        "schema" : {
-          "type" : "string"
-        },
-        "example" : "9999::333222111"
-      },
-      "messageId" : {
-        "name" : "messageId",
-        "in" : "path",
-        "description" : "The MessageId is the unique identifier of the message submitted. It MUST be defined by the client. It is used for reliable messaging for guaranteeing the at-most-once message submission (no duplicate message-ids are allowed by the server implementing the API).",
-        "required" : true,
-        "schema" : {
-          "type" : "string"
-        },
-        "example" : "dde12f67-c391-4851-8fa2-c07dd8532efd"
-      },
-      "Signal-Webhook" : {
-        "name" : "Signal-Webhook",
-        "in" : "header",
-        "description" : "The Signal-Webhook provides the callback URL that the server MUST use for sending a signal back. It is required when implementing the \"Send Message with Asynchronous Response – Push and Webhook Pull\" exchange pattern.",
-        "schema" : {
-          "format" : "uri",
-          "type" : "string"
-        }
-      },
-      "Timestamp" : {
-        "name" : "Timestamp",
-        "in" : "header",
-        "description" : "The Timestamp is the exact date and time at which the message was sent. It is provided by the client and verified by the server.",
-        "schema" : {
-          "format" : "date-time",
-          "type" : "string"
-        },
-        "example" : "2021-06-17T08:30:00Z"
       },
       "rAction" : {
         "name" : "rAction",
@@ -200,6 +154,16 @@
         "schema" : {
           "type" : "string"
         }
+      },
+      "Original-Sender" : {
+        "name" : "Original-Sender",
+        "in" : "header",
+        "description" : "The Original Sender is the entity that initiates the submission of the message. It is a single identifier and its representation is out of scope of the current specification.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "9999::333222111"
       },
       "service" : {
         "name" : "service",
@@ -211,6 +175,26 @@
         },
         "example" : "dsd-service"
       },
+      "Final-Recipient" : {
+        "name" : "Final-Recipient",
+        "in" : "header",
+        "description" : "The Final Recipient is the entity for whom the message is sent. Can be a single identifier or a set of identifiers, as described in the Recipient Addressing Schemes section of the specification. The representation of the final recipient is out of scope of the current specification.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "9999::333222112"
+      },
+      "messageId" : {
+        "name" : "messageId",
+        "in" : "path",
+        "description" : "The MessageId is the unique identifier of the message submitted. It MUST be defined by the client. It is used for reliable messaging for guaranteeing the at-most-once message submission (no duplicate message-ids are allowed by the server implementing the API).",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "dde12f67-c391-4851-8fa2-c07dd8532efd"
+      },
       "action" : {
         "name" : "action",
         "in" : "path",
@@ -221,47 +205,87 @@
         },
         "example" : "dsd-action"
       },
-      "Response-Final-Recipient" : {
-        "name" : "Final-Recipient",
+      "Original-Sender-Token" : {
+        "name" : "Original-Sender-Token",
         "in" : "header",
-        "description" : "The representation of Final Recipient(s) of the response message, which MUST match the Original Sender of the initial message.",
+        "description" : "The Original Sender represents the authenticated entity acting as the user that sends the message using the client. Following the API Core Profile, the original sender MUST be represented with an OpenID Connect token or a signed JWT in both the form of Compact JWT Token, which is carried under the Original-Sender-Token HTTP Field",
+        "required" : true,
         "schema" : {
           "$ref" : "#/components/schemas/jws-compact"
         },
         "example" : "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9.eyJzdWIiOiIxM0NTY3ODkwIiwibmIiwiaWF0IoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
       },
-      "Response-Original-Sender" : {
-        "name" : "Original-Sender",
+      "Signal-Webhook" : {
+        "name" : "Signal-Webhook",
         "in" : "header",
-        "description" : "The representation of the Original Sender of the response message, which MUST match (one of) the Final Recipient(s) of the initial message.",
+        "description" : "The Signal-Webhook provides the callback URL that the server MUST use for sending a signal back. It is required when implementing the \"Send Message with Asynchronous Response – Push and Webhook Pull\" exchange pattern.",
+        "required" : false,
         "schema" : {
+          "format" : "uri",
           "type" : "string"
-        },
-        "example" : "9999::333222111"
-      }
-    },
-    "headers" : {
-      "Original-Sender" : {
-        "description" : "The Original Sender represents the authenticated entity acting as the user that sends the message using the client. Following the API Core Profile, the original sender MUST be represented with an OpenID Connect token, in the form of Compact JWT Token.",
-        "schema" : {
-          "$ref" : "#/components/schemas/jws-compact"
-        },
-        "example" : "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9.eyJzdWIiOiIxM0NTY3ODkwIiwibmIiwiaWF0IoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
-      },
-      "Final-Recipient" : {
-        "description" : "The Final Recipient is the entity for whom the message is sent. Can be a single identifier or a set of identifiers, as described in the Recipient Addressing Schemes section of the specification. The representation of the final recipient is out of scope of the current specification.",
-        "schema" : {
-          "type" : "string"
-        },
-        "example" : "9999::333222111"
+        }
       },
       "Timestamp" : {
+        "name" : "Timestamp",
+        "in" : "header",
         "description" : "The Timestamp is the exact date and time at which the message was sent. It is provided by the client and verified by the server.",
+        "required" : true,
         "schema" : {
           "format" : "date-time",
           "type" : "string"
         },
         "example" : "2021-06-17T08:30:00Z"
+      }
+    },
+    "headers" : {
+      "Original-Sender" : {
+        "description" : "The Original Sender is the entity that initiates the submission of the message. It is a single identifier and its representation is out of scope of the current specification.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "9999::333222111"
+      },
+      "Content-Disposition" : {
+        "description" : "The Content-Disposition header, declaring the subpart as an attachment. MUST be Attachment Type ",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "Attachment"
+      },
+      "Final-Recipient" : {
+        "description" : "The Final Recipient is the entity for whom the message is sent. Can be a single identifier or a set of identifiers, as described in the Recipient Addressing Schemes section of the specification. The representation of the final recipient is out of scope of the current specification.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "9999::333222112"
+      },
+      "Original-Sender-Token" : {
+        "description" : "The Original Sender represents the authenticated entity acting as the user that sends the message using the client. Following the API Core Profile, the original sender MUST be represented with an OpenID Connect token or a signed JWT in both the form of Compact JWT Token, which is carried under the Original-Sender-Token HTTP Field",
+        "required" : true,
+        "schema" : {
+          "$ref" : "#/components/schemas/jws-compact"
+        },
+        "example" : "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9.eyJzdWIiOiIxM0NTY3ODkwIiwibmIiwiaWF0IoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
+      },
+      "Timestamp" : {
+        "description" : "The Timestamp is the exact date and time at which the message was sent. It is provided by the client and verified by the server.",
+        "required" : true,
+        "schema" : {
+          "format" : "date-time",
+          "type" : "string"
+        },
+        "example" : "2021-06-17T08:30:00Z"
+      },
+      "Content-Type" : {
+        "description" : "The content type of the subpart of the multipart message. The value MUST be One of IANA Media Types!",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "application/json"
       }
     }
   }

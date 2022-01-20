@@ -4,8 +4,8 @@
   "properties" : {
     "maturity" : {
       "description" : "The maturity level of the API. It MUST contain one of the following values: development,supported,deprecated.",
-      "default" : "development",
       "enum" : [ "development", "supported", "deprecated" ],
+      "default" : "development",
       "type" : "string"
     },
     "deprecated_at" : {

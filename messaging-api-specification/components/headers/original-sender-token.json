@@ -1,0 +1,8 @@
+{
+  "description" : "The Original Sender represents the authenticated entity acting as the user that sends the message using the client. Following the API Core Profile, the original sender MUST be represented with an OpenID Connect token or a signed JWT in both the form of Compact JWT Token, which is carried under the Original-Sender-Token HTTP Field",
+  "required" : true,
+  "schema" : {
+    "$ref" : "https://raw.githubusercontent.com/isa2-api4ips/rest-api-profile/main/messaging-api-specification/components/schemas/jws-compact.json"
+  },
+  "example" : "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9.eyJzdWIiOiIxM0NTY3ODkwIiwibmIiwiaWF0IoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
+}

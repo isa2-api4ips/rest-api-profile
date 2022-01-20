@@ -1,9 +1,0 @@
-{
-  "name" : "Original-Sender",
-  "in" : "header",
-  "description" : "The representation of the Original Sender of the response message, which MUST match (one of) the Final Recipient(s) of the initial message.",
-  "schema" : {
-    "type" : "string"
-  },
-  "example" : "9999::333222111"
-}

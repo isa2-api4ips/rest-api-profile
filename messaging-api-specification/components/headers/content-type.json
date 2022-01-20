@@ -1,0 +1,8 @@
+{
+  "description" : "The content type of the subpart of the multipart message. The value MUST be One of IANA Media Types!",
+  "required" : true,
+  "schema" : {
+    "type" : "string"
+  },
+  "example" : "application/json"
+}
