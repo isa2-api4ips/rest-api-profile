@@ -1,7 +1,7 @@
 {
   "components" : {
     "schemas" : {
-      "jws-compact-detached" : {
+      "JwsCompactDetached" : {
         "title" : "The message-level and payload signature",
         "pattern" : "^[A-Za-z0-9_-]+(?:(\\.\\.)[A-Za-z0-9_-]+){1}",
         "description" : "The JWS compact representation schema defines the string pattern as a regular expression, denoting the structure a JWS compact token MUST follow to be a valid compact JWS Representation. It is used for defining the value of the message-level signature and of the payload signature",
@@ -57,7 +57,7 @@
         "description" : "The Edel-Message-Sig carries the signature of the HTTP Message following the API Core Profile on Message-Level Security. Following the light context constraints, the signature is optional for the client messages, but is RECOMMENDED for server messages.",
         "required" : false,
         "schema" : {
-          "$ref" : "#/components/schemas/jws-compact-detached"
+          "$ref" : "#/components/schemas/JwsCompactDetached"
         },
         "example" : "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9..SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
       }
@@ -67,7 +67,7 @@
         "description" : "The Edel-Payload-Sig carries the signature of a subpart of the Multipart message (see User Message section) following the API Core Profile on Payload Security.",
         "required" : false,
         "schema" : {
-          "$ref" : "#/components/schemas/jws-compact-detached"
+          "$ref" : "#/components/schemas/JwsCompactDetached"
         },
         "example" : "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9..SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
       },
@@ -75,7 +75,7 @@
         "description" : "The Edel-Message-Sig carries the signature of the HTTP Message following the API Core Profile on Message-Level Security. Following the light context constraints, the signature is optional for the client messages, but is RECOMMENDED for server messages.",
         "required" : false,
         "schema" : {
-          "$ref" : "#/components/schemas/jws-compact-detached"
+          "$ref" : "#/components/schemas/JwsCompactDetached"
         },
         "example" : "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9..SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
       }

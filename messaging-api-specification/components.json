@@ -33,15 +33,6 @@
         "$schema" : "https://json-schema.org/draft/2020-12/schema",
         "type" : "object"
       },
-      "jws-compact" : {
-        "title" : "JWT token.",
-        "pattern" : "^[A-Za-z0-9_-]+(?:\\.[A-Za-z0-9_-]+){2}$",
-        "description" : "The JWS compact representation schema defines the string pattern as a regular expression, denoting the structure a JWS compact token MUST follow to be a valid compact JWS Representation. It is used for defining the value of the Original-Sender token.",
-        "format" : "jws-compact",
-        "$id" : "https://raw.githubusercontent.com/isa2-api4ips/rest-api-profile/main/messaging-api-specification/components/schemas/jws-compact.json",
-        "$schema" : "https://json-schema.org/draft/2020-12/schema",
-        "type" : "string"
-      },
       "SignalMessage" : {
         "title" : "A Signal message which extends Problem object (RFC 7807) defined by the ISA² IPS REST API Core Profile",
         "required" : [ "instance", "status", "title", "type" ],
@@ -88,6 +79,15 @@
         "$id" : "https://raw.githubusercontent.com/isa2-api4ips/rest-api-profile/main/messaging-api-specification/components/schemas/signal-message.json",
         "$schema" : "https://json-schema.org/draft/2020-12/schema",
         "type" : "object"
+      },
+      "JwsCompact" : {
+        "title" : "JWT token.",
+        "pattern" : "^[A-Za-z0-9_-]+(?:\\.[A-Za-z0-9_-]+){2}$",
+        "description" : "The JWS compact representation schema defines the string pattern as a regular expression, denoting the structure a JWS compact token MUST follow to be a valid compact JWS Representation. It is used for defining the value of the Original-Sender token.",
+        "format" : "jws-compact",
+        "$id" : "https://raw.githubusercontent.com/isa2-api4ips/rest-api-profile/main/messaging-api-specification/components/schemas/jws-compact.json",
+        "$schema" : "https://json-schema.org/draft/2020-12/schema",
+        "type" : "string"
       },
       "MessageReference" : {
         "title" : "A Message Reference object defined by the ISA² IPS REST API Messaging API Specification",
@@ -211,7 +211,7 @@
         "description" : "The Original Sender represents the authenticated entity acting as the user that sends the message using the client. Following the API Core Profile, the original sender MUST be represented with an OpenID Connect token or a signed JWT in both the form of Compact JWT Token, which is carried under the Original-Sender-Token HTTP Field",
         "required" : true,
         "schema" : {
-          "$ref" : "#/components/schemas/jws-compact"
+          "$ref" : "#/components/schemas/JwsCompact"
         },
         "example" : "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9.eyJzdWIiOiIxM0NTY3ODkwIiwibmIiwiaWF0IoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
       },
@@ -266,7 +266,7 @@
         "description" : "The Original Sender represents the authenticated entity acting as the user that sends the message using the client. Following the API Core Profile, the original sender MUST be represented with an OpenID Connect token or a signed JWT in both the form of Compact JWT Token, which is carried under the Original-Sender-Token HTTP Field",
         "required" : true,
         "schema" : {
-          "$ref" : "#/components/schemas/jws-compact"
+          "$ref" : "#/components/schemas/JwsCompact"
         },
         "example" : "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9.eyJzdWIiOiIxM0NTY3ODkwIiwibmIiwiaWF0IoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
       },
