@@ -1,11 +1,27 @@
 openapi: 3.1.0
-externalDocs:
-  description: Documentation of the OpenAPI Document Library of the ISA² IPS REST API Core Profile
-  url: https://joinup.ec.europa.eu/collection/api4dt/solution/...
 
 info:
-  title: "ISA² IPS REST API Core Profile - OpenAPI Document Specification"
-  version: 1.0.0
+  title: ISA² IPS REST API Core Profile - OpenAPI Document Specification
+  summary: OpenAPI Document Specification supporting the ISA² IPS REST API Core Profile
+  description: This specification provides definitions introduced by the ISA² IPS REST API Profile
+  contact:
+    name: eDelivery support office
+    url: https://ec.europa.eu/digital-building-blocks/tracker/plugins/servlet/desk/portal/6
+    email: EC-EDELIVERY-SUPPORT@ec.europa.eu
+  license:
+    name: EUPL-1.2 or later
+    url: https://eupl.eu/1.2/en/
+  version: 1.0.0
+  x-edelivery:
+    lifecycle:
+      maturity: supported
+    publisher:
+      name: European Commission
+      URL: https://ec.europa.eu/
+
+externalDocs:
+  description: The ISA² IPS REST API Core Profile
+  url: https://joinup.ec.europa.eu/collection/api4dt/document/isa2-ips-rest-api-profile
 
 components:
   headers:
