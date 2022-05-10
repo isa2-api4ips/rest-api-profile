@@ -1,0 +1,43 @@
+{
+  "title" : "eDelivery profile extension",
+  "properties" : {
+    "publisher" : {
+      "properties" : {
+        "name" : {
+          "description" : "The name of the publisher",
+          "type" : "string"
+        },
+        "URL" : {
+          "description" : "The URL pointing to a web page providing information about the publisher",
+          "format" : "url",
+          "type" : "string"
+        }
+      },
+      "type" : "object"
+    },
+    "lifecycle" : {
+      "required" : [ "maturity" ],
+      "properties" : {
+        "maturity" : {
+          "description" : "The maturity level of the API. It MUST contain one of the following values: development,supported,deprecated.",
+          "enum" : [ "development", "supported", "deprecated" ],
+          "default" : "development",
+          "type" : "string"
+        },
+        "deprecatedAt" : {
+          "description" : "The date when the API has been deprecated. The date format MUST follow [RFC3339]",
+          "format" : "date-time",
+          "type" : "string"
+        },
+        "sunsetAt" : {
+          "description" : "The date when the API will be sunset. The date format MUST follow [RFC3339]",
+          "format" : "date-time",
+          "type" : "string"
+        }
+      },
+      "type" : "object"
+    }
+  },
+  "description" : "eDelivery profile extensions: publisher and lifecycle",
+  "type" : "object"
+}
