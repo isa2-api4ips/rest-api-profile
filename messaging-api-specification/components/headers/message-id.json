@@ -1,0 +1,8 @@
+{
+  "description" : "When the rMessageId URL parameter can't be used for providing the identifier of the response message, e.g. in synchronous responses, the Message-Id header field can be used instead. It identifies either a response or a signal message received synchronously.",
+  "required" : true,
+  "schema" : {
+    "type" : "string"
+  },
+  "example" : "dde12f67-c391-4851-8fa2-c07dd8532efd"
+}

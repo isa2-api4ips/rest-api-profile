@@ -31,17 +31,17 @@ The following pre-defined signals MUST be supported by both the client and the s
 <b>Type:</b> https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#invalid-format<BR />
 <b>Detail:</b> Sent when the message format does not adhere to the specification<BR />
 
-<h2 id="no-final-recipient">No final recipient configured for the pulling user</h2>
+<h2 id="no-final-recipient">Pull Error: No final recipient configured for the pulling user</h2>
 <b>Status:</b> 400<BR />
 <b>Type:</b> https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-final-recipient<BR />
 <b>Detail:</b> Sent when the server cannot resolve/match the pulling user to a final recipient<BR />
 
-<h2 id="no-message-found">No Message Found</h2>
+<h2 id="no-message-found">Pull Error: No Message Found</h2>
 <b>Status:</b> 404<BR />
 <b>Type:</b> https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-message-found<BR />
 <b>Detail:</b> Sent when no message is found that maps to the pull request<BR />
 
-<h2 id="unauthorized">Unauthorized</h2>
+<h2 id="unauthorized">Pull Error: Unauthorized</h2>
 <b>Status:</b> 401<BR />
 <b>Type:</b> https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized<BR />
 <b>Detail:</b> Sent when the pull request is unauthorized<BR />
@@ -49,9 +49,9 @@ The following pre-defined signals MUST be supported by both the client and the s
 <h2 id="message-ready">Message Response is ready</h2>
 <b>Status:</b> 201<BR />
 <b>Type:</b> https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-ready<BR />
-<b>Detail:</b> An HTTP Request following [RFC7807] MUST be sent when a message response is ready to be retrieve<BR />
+<b>Detail:</b> An HTTP Request following [RFC7807] MUST be sent when a message response is ready to be retrieved<BR />
 
-<h2 id="internal-server-error">Internal Server Error</h2>
+<h2 id="server-error">Server Error</h2>
 <b>Status:</b> 500<BR />
-<b>Type:</b> https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error<BR />
-<b>Detail:</b> The server encountered an unexpected condition that prevented it from fulfilling the request<BR />
+<b>Type:</b> https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#server-error<BR />
+<b>Detail:</b> Sent when a server error occurred that does not affect the signalling process<BR />

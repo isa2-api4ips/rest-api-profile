@@ -81,7 +81,7 @@
         "type" : "object"
       },
       "JwsCompact" : {
-        "title" : "JWT token.",
+        "title" : "JWT token",
         "pattern" : "^[A-Za-z0-9_-]+(?:\\.[A-Za-z0-9_-]+){2}$",
         "description" : "The JWS compact representation schema defines the string pattern as a regular expression, denoting the structure a JWS compact token MUST follow to be a valid compact JWS Representation. It is used for defining the value of the Original-Sender token.",
         "format" : "jws-compact",
@@ -269,6 +269,14 @@
           "$ref" : "#/components/schemas/JwsCompact"
         },
         "example" : "eyJhbGciOiJIUzINiIsnRI6IkpXVCJ9.eyJzdWIiOiIxM0NTY3ODkwIiwibmIiwiaWF0IoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMePOk6yJV_adQssw5c"
+      },
+      "Message-Id" : {
+        "description" : "When the rMessageId URL parameter can't be used for providing the identifier of the response message, e.g. in synchronous responses, the Message-Id header field can be used instead. It identifies either a response or a signal message received synchronously.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "dde12f67-c391-4851-8fa2-c07dd8532efd"
       },
       "Timestamp" : {
         "description" : "The Timestamp is the exact date and time at which the message was sent. It is provided by the client and verified by the server.",

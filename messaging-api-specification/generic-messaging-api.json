@@ -10,12 +10,14 @@
     },
     "version" : "v1.0",
     "summary" : "Generic Messaging API",
-    "x-edel-lifecycle" : {
-      "maturity" : "development"
-    },
-    "x-edel-publisher" : {
-      "name" : "European Commission",
-      "url" : "https://joinup.ec.europa.eu/collection/api4dt"
+    "x-edelivery" : {
+      "publisher" : {
+        "name" : "European Commission",
+        "url" : "https://joinup.ec.europa.eu/collection/api4dt"
+      },
+      "lifecycle" : {
+        "maturity" : "development"
+      }
     }
   },
   "externalDocs" : {
@@ -59,9 +61,6 @@
           "202" : {
             "description" : "",
             "headers" : {
-              "Edel-Message-Sig" : {
-                "$ref" : "#/components/headers/Edel-Message-Sig"
-              },
               "Original-Sender" : {
                 "$ref" : "#/components/headers/Original-Sender"
               },
@@ -73,6 +72,12 @@
               },
               "Timestamp" : {
                 "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
+              "Edel-Message-Sig" : {
+                "$ref" : "#/components/headers/Edel-Message-Sig"
               }
             },
             "content" : {
@@ -103,6 +108,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -113,7 +124,7 @@
                 "examples" : {
                   "NoFinalRecipient" : {
                     "value" : {
-                      "title" : "No final recipient configured for the pulling user",
+                      "title" : "Pull Error: No final recipient configured for the pulling user",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-final-recipient",
                       "status" : 400,
                       "detail" : "Sent when the server cannot resolve/match the pulling user to a final recipient"
@@ -128,6 +139,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -138,7 +155,7 @@
                 "examples" : {
                   "NoMessageFound" : {
                     "value" : {
-                      "title" : "No Message Found",
+                      "title" : "Pull Error: No Message Found",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-message-found",
                       "status" : 404,
                       "detail" : "Sent when no message is found that maps to the pull request"
@@ -153,6 +170,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -163,7 +186,7 @@
                 "examples" : {
                   "Unauthorized" : {
                     "value" : {
-                      "title" : "Unauthorized",
+                      "title" : "Pull Error: Unauthorized",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
@@ -229,6 +252,12 @@
           "202" : {
             "description" : "Sent when the message is properly validated and received.",
             "headers" : {
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
               }
@@ -254,6 +283,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -307,10 +342,16 @@
             }
           },
           "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
+            "description" : "Sent when a server error occurred that does not affect the signalling process",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -319,12 +360,12 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "InternalServerError" : {
+                  "ServerError" : {
                     "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
+                      "title" : "Server Error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#server-error",
                       "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
+                      "detail" : "Sent when a server error occurred that does not affect the signalling process"
                     }
                   }
                 }
@@ -344,6 +385,12 @@
           "202" : {
             "description" : "Message reference list",
             "headers" : {
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
               }
@@ -355,15 +402,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "d83e135f-3427-4637-8206-c6b612b2aca7",
+                    "messageId" : "7637e774-72c2-46a7-8070-5b93b5f0e9fd",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/d83e135f-3427-4637-8206-c6b612b2aca7"
+                    "href" : "/my-service/my-action/7637e774-72c2-46a7-8070-5b93b5f0e9fd"
                   }, {
-                    "messageId" : "c7bccf7d-a207-40a7-b770-80bc37c00b13",
+                    "messageId" : "db7035d9-d8fe-4d72-a11c-5eb06ae9c07c",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/c7bccf7d-a207-40a7-b770-80bc37c00b13"
+                    "href" : "/my-service/my-action/db7035d9-d8fe-4d72-a11c-5eb06ae9c07c"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -376,6 +423,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -386,7 +439,7 @@
                 "examples" : {
                   "NoFinalRecipient" : {
                     "value" : {
-                      "title" : "No final recipient configured for the pulling user",
+                      "title" : "Pull Error: No final recipient configured for the pulling user",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-final-recipient",
                       "status" : 400,
                       "detail" : "Sent when the server cannot resolve/match the pulling user to a final recipient"
@@ -401,6 +454,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -411,7 +470,7 @@
                 "examples" : {
                   "NoMessageFound" : {
                     "value" : {
-                      "title" : "No Message Found",
+                      "title" : "Pull Error: No Message Found",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-message-found",
                       "status" : 404,
                       "detail" : "Sent when no message is found that maps to the pull request"
@@ -426,6 +485,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -436,7 +501,7 @@
                 "examples" : {
                   "Unauthorized" : {
                     "value" : {
-                      "title" : "Unauthorized",
+                      "title" : "Pull Error: Unauthorized",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
@@ -472,9 +537,6 @@
           "202" : {
             "description" : "",
             "headers" : {
-              "Edel-Message-Sig" : {
-                "$ref" : "#/components/headers/Edel-Message-Sig"
-              },
               "Original-Sender" : {
                 "$ref" : "#/components/headers/Original-Sender"
               },
@@ -486,6 +548,12 @@
               },
               "Timestamp" : {
                 "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
+              "Edel-Message-Sig" : {
+                "$ref" : "#/components/headers/Edel-Message-Sig"
               }
             },
             "content" : {
@@ -516,6 +584,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -526,7 +600,7 @@
                 "examples" : {
                   "NoFinalRecipient" : {
                     "value" : {
-                      "title" : "No final recipient configured for the pulling user",
+                      "title" : "Pull Error: No final recipient configured for the pulling user",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-final-recipient",
                       "status" : 400,
                       "detail" : "Sent when the server cannot resolve/match the pulling user to a final recipient"
@@ -541,6 +615,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -551,7 +631,7 @@
                 "examples" : {
                   "NoMessageFound" : {
                     "value" : {
-                      "title" : "No Message Found",
+                      "title" : "Pull Error: No Message Found",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-message-found",
                       "status" : 404,
                       "detail" : "Sent when no message is found that maps to the pull request"
@@ -566,6 +646,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -576,7 +662,7 @@
                 "examples" : {
                   "Unauthorized" : {
                     "value" : {
-                      "title" : "Unauthorized",
+                      "title" : "Pull Error: Unauthorized",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
@@ -594,6 +680,8 @@
         "description" : "The Response Message Submission endpoint is the endpoint used for sending response messages in reply to a previously submitted message. It provides the endpoint to which a client sends the response message, as created by the final recipient.",
         "operationId" : "ResponseMessageSubmissionId",
         "parameters" : [ {
+          "$ref" : "#/components/parameters/Timestamp"
+        }, {
           "$ref" : "#/components/parameters/Edel-Message-Sig"
         }, {
           "$ref" : "#/components/parameters/Original-Sender"
@@ -601,8 +689,6 @@
           "$ref" : "#/components/parameters/Original-Sender-Token"
         }, {
           "$ref" : "#/components/parameters/Final-Recipient"
-        }, {
-          "$ref" : "#/components/parameters/Timestamp"
         }, {
           "$ref" : "#/components/parameters/messageId"
         }, {
@@ -644,6 +730,12 @@
           "202" : {
             "description" : "Sent when the message is properly validated and received.",
             "headers" : {
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
               }
@@ -669,6 +761,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -722,10 +820,16 @@
             }
           },
           "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
+            "description" : "Sent when a server error occurred that does not affect the signalling process",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -734,12 +838,12 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "InternalServerError" : {
+                  "ServerError" : {
                     "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
+                      "title" : "Server Error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#server-error",
                       "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
+                      "detail" : "Sent when a server error occurred that does not affect the signalling process"
                     }
                   }
                 }
@@ -766,6 +870,12 @@
           "202" : {
             "description" : "Message reference list",
             "headers" : {
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
               }
@@ -777,15 +887,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "916c3607-889e-4e56-b698-d75fd77c80a3",
+                    "messageId" : "6b770bb2-789c-4507-9ed0-b22cc1b5b92c",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/916c3607-889e-4e56-b698-d75fd77c80a3"
+                    "href" : "/my-service/my-action/6b770bb2-789c-4507-9ed0-b22cc1b5b92c"
                   }, {
-                    "messageId" : "5c09789f-1a81-48c4-acc9-fdee28d6adfd",
+                    "messageId" : "2e95c699-9432-4f7a-88eb-8dde57974ac3",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/5c09789f-1a81-48c4-acc9-fdee28d6adfd"
+                    "href" : "/my-service/my-action/2e95c699-9432-4f7a-88eb-8dde57974ac3"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -798,6 +908,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -808,7 +924,7 @@
                 "examples" : {
                   "NoFinalRecipient" : {
                     "value" : {
-                      "title" : "No final recipient configured for the pulling user",
+                      "title" : "Pull Error: No final recipient configured for the pulling user",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-final-recipient",
                       "status" : 400,
                       "detail" : "Sent when the server cannot resolve/match the pulling user to a final recipient"
@@ -823,6 +939,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -833,7 +955,7 @@
                 "examples" : {
                   "NoMessageFound" : {
                     "value" : {
-                      "title" : "No Message Found",
+                      "title" : "Pull Error: No Message Found",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-message-found",
                       "status" : 404,
                       "detail" : "Sent when no message is found that maps to the pull request"
@@ -848,6 +970,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -858,7 +986,7 @@
                 "examples" : {
                   "Unauthorized" : {
                     "value" : {
-                      "title" : "Unauthorized",
+                      "title" : "Pull Error: Unauthorized",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
@@ -890,6 +1018,12 @@
           "202" : {
             "description" : "Message reference list",
             "headers" : {
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
               }
@@ -901,15 +1035,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "9c084977-ab6f-4568-b598-d74c6a442298",
+                    "messageId" : "5f910472-6480-499e-9701-b6183fb2adfd",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/9c084977-ab6f-4568-b598-d74c6a442298"
+                    "href" : "/my-service/my-action/5f910472-6480-499e-9701-b6183fb2adfd"
                   }, {
-                    "messageId" : "2d787c71-dce0-4ccb-8c10-4987676d7230",
+                    "messageId" : "8a4c69a8-e696-4a3e-aa86-5926504b3381",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/2d787c71-dce0-4ccb-8c10-4987676d7230"
+                    "href" : "/my-service/my-action/8a4c69a8-e696-4a3e-aa86-5926504b3381"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -922,6 +1056,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -932,7 +1072,7 @@
                 "examples" : {
                   "NoFinalRecipient" : {
                     "value" : {
-                      "title" : "No final recipient configured for the pulling user",
+                      "title" : "Pull Error: No final recipient configured for the pulling user",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-final-recipient",
                       "status" : 400,
                       "detail" : "Sent when the server cannot resolve/match the pulling user to a final recipient"
@@ -947,6 +1087,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -957,7 +1103,7 @@
                 "examples" : {
                   "NoMessageFound" : {
                     "value" : {
-                      "title" : "No Message Found",
+                      "title" : "Pull Error: No Message Found",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-message-found",
                       "status" : 404,
                       "detail" : "Sent when no message is found that maps to the pull request"
@@ -972,6 +1118,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -982,7 +1134,7 @@
                 "examples" : {
                   "Unauthorized" : {
                     "value" : {
-                      "title" : "Unauthorized",
+                      "title" : "Pull Error: Unauthorized",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
@@ -1016,6 +1168,12 @@
           "202" : {
             "description" : "Message reference list",
             "headers" : {
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
               }
@@ -1027,15 +1185,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "a16f9275-a6a3-4d55-b986-38b8e1bb87fc",
+                    "messageId" : "0dac4cce-d32b-49ac-9ff6-bfc4a737107f",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/a16f9275-a6a3-4d55-b986-38b8e1bb87fc"
+                    "href" : "/my-service/my-action/0dac4cce-d32b-49ac-9ff6-bfc4a737107f"
                   }, {
-                    "messageId" : "611a36b6-2097-457c-9bce-3690aa384648",
+                    "messageId" : "e5ebe67e-7bc7-48f7-99ca-275e271dd3d3",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/611a36b6-2097-457c-9bce-3690aa384648"
+                    "href" : "/my-service/my-action/e5ebe67e-7bc7-48f7-99ca-275e271dd3d3"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1048,6 +1206,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1058,7 +1222,7 @@
                 "examples" : {
                   "NoFinalRecipient" : {
                     "value" : {
-                      "title" : "No final recipient configured for the pulling user",
+                      "title" : "Pull Error: No final recipient configured for the pulling user",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-final-recipient",
                       "status" : 400,
                       "detail" : "Sent when the server cannot resolve/match the pulling user to a final recipient"
@@ -1073,6 +1237,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1083,7 +1253,7 @@
                 "examples" : {
                   "NoMessageFound" : {
                     "value" : {
-                      "title" : "No Message Found",
+                      "title" : "Pull Error: No Message Found",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-message-found",
                       "status" : 404,
                       "detail" : "Sent when no message is found that maps to the pull request"
@@ -1098,6 +1268,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1108,7 +1284,7 @@
                 "examples" : {
                   "Unauthorized" : {
                     "value" : {
-                      "title" : "Unauthorized",
+                      "title" : "Pull Error: Unauthorized",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
@@ -1136,6 +1312,12 @@
           "202" : {
             "description" : "Message reference list",
             "headers" : {
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
               }
@@ -1147,15 +1329,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "bf1fde86-2e9d-40ad-8801-30e68e5e5d1b",
+                    "messageId" : "bbffd3c1-7f7f-4910-86e1-7176d43858ca",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/bf1fde86-2e9d-40ad-8801-30e68e5e5d1b"
+                    "href" : "/my-service/my-action/bbffd3c1-7f7f-4910-86e1-7176d43858ca"
                   }, {
-                    "messageId" : "39eef90d-d235-4295-a2fa-5c5c88f7e611",
+                    "messageId" : "387f64ff-56b3-4327-a307-859c855829c8",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/39eef90d-d235-4295-a2fa-5c5c88f7e611"
+                    "href" : "/my-service/my-action/387f64ff-56b3-4327-a307-859c855829c8"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1168,6 +1350,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1178,7 +1366,7 @@
                 "examples" : {
                   "NoFinalRecipient" : {
                     "value" : {
-                      "title" : "No final recipient configured for the pulling user",
+                      "title" : "Pull Error: No final recipient configured for the pulling user",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-final-recipient",
                       "status" : 400,
                       "detail" : "Sent when the server cannot resolve/match the pulling user to a final recipient"
@@ -1193,6 +1381,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1203,7 +1397,7 @@
                 "examples" : {
                   "NoMessageFound" : {
                     "value" : {
-                      "title" : "No Message Found",
+                      "title" : "Pull Error: No Message Found",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-message-found",
                       "status" : 404,
                       "detail" : "Sent when no message is found that maps to the pull request"
@@ -1218,6 +1412,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1228,7 +1428,7 @@
                 "examples" : {
                   "Unauthorized" : {
                     "value" : {
-                      "title" : "Unauthorized",
+                      "title" : "Pull Error: Unauthorized",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
@@ -1254,6 +1454,12 @@
           "202" : {
             "description" : "Message reference list",
             "headers" : {
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
               }
@@ -1265,15 +1471,15 @@
                 },
                 "example" : {
                   "messageReferenceList" : [ {
-                    "messageId" : "ecfc74f1-8392-4119-9195-63c3355fdb1e",
+                    "messageId" : "00c04256-d2e8-4d5e-8757-d370a89cc803",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/ecfc74f1-8392-4119-9195-63c3355fdb1e"
+                    "href" : "/my-service/my-action/00c04256-d2e8-4d5e-8757-d370a89cc803"
                   }, {
-                    "messageId" : "92b7c07c-16e7-41e7-b80b-d649e0a7a94f",
+                    "messageId" : "542229ab-9047-4f5c-864f-e90928cbc78a",
                     "service" : "my-service",
                     "action" : "my-action",
-                    "href" : "/my-service/my-action/92b7c07c-16e7-41e7-b80b-d649e0a7a94f"
+                    "href" : "/my-service/my-action/542229ab-9047-4f5c-864f-e90928cbc78a"
                   } ],
                   "limit" : -1,
                   "offset" : 0
@@ -1286,6 +1492,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1296,7 +1508,7 @@
                 "examples" : {
                   "NoFinalRecipient" : {
                     "value" : {
-                      "title" : "No final recipient configured for the pulling user",
+                      "title" : "Pull Error: No final recipient configured for the pulling user",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-final-recipient",
                       "status" : 400,
                       "detail" : "Sent when the server cannot resolve/match the pulling user to a final recipient"
@@ -1311,6 +1523,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1321,7 +1539,7 @@
                 "examples" : {
                   "NoMessageFound" : {
                     "value" : {
-                      "title" : "No Message Found",
+                      "title" : "Pull Error: No Message Found",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-message-found",
                       "status" : 404,
                       "detail" : "Sent when no message is found that maps to the pull request"
@@ -1336,6 +1554,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1346,7 +1570,7 @@
                 "examples" : {
                   "Unauthorized" : {
                     "value" : {
-                      "title" : "Unauthorized",
+                      "title" : "Pull Error: Unauthorized",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
@@ -1366,6 +1590,8 @@
         "description" : "The Signal Submission endpoint is used for signalling the successfully pulled message or to response errors/warnings at receiving messages.",
         "operationId" : "SignalSubmissionId",
         "parameters" : [ {
+          "$ref" : "#/components/parameters/Timestamp"
+        }, {
           "$ref" : "#/components/parameters/Edel-Message-Sig"
         }, {
           "$ref" : "#/components/parameters/messageId"
@@ -1380,7 +1606,7 @@
                 "title" : "Message Response is ready",
                 "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-ready",
                 "status" : 201,
-                "detail" : "An HTTP Request following [RFC7807] MUST be sent when a message response is ready to be retrieve",
+                "detail" : "An HTTP Request following [RFC7807] MUST be sent when a message response is ready to be retrieved",
                 "instance" : "/my-service/my-action/dde12f67-c391-4851-8fa2-c07dd8532efd",
                 "digest" : "sha-256=eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ"
               }
@@ -1391,6 +1617,12 @@
           "202" : {
             "description" : "Sent when the message is properly validated and received.",
             "headers" : {
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
               }
@@ -1416,6 +1648,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1426,7 +1664,7 @@
                 "examples" : {
                   "NoFinalRecipient" : {
                     "value" : {
-                      "title" : "No final recipient configured for the pulling user",
+                      "title" : "Pull Error: No final recipient configured for the pulling user",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-final-recipient",
                       "status" : 400,
                       "detail" : "Sent when the server cannot resolve/match the pulling user to a final recipient"
@@ -1441,6 +1679,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1451,7 +1695,7 @@
                 "examples" : {
                   "NoMessageFound" : {
                     "value" : {
-                      "title" : "No Message Found",
+                      "title" : "Pull Error: No Message Found",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-message-found",
                       "status" : 404,
                       "detail" : "Sent when no message is found that maps to the pull request"
@@ -1466,6 +1710,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1476,7 +1726,7 @@
                 "examples" : {
                   "Unauthorized" : {
                     "value" : {
-                      "title" : "Unauthorized",
+                      "title" : "Pull Error: Unauthorized",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
@@ -1540,6 +1790,21 @@
           "202" : {
             "description" : "",
             "headers" : {
+              "Original-Sender" : {
+                "$ref" : "#/components/headers/Original-Sender"
+              },
+              "Original-Sender-Token" : {
+                "$ref" : "#/components/headers/Original-Sender-Token"
+              },
+              "Final-Recipient" : {
+                "$ref" : "#/components/headers/Final-Recipient"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
               }
@@ -1572,6 +1837,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1625,10 +1896,16 @@
             }
           },
           "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
+            "description" : "Sent when a server error occurred that does not affect the signalling process",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -1637,12 +1914,12 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "InternalServerError" : {
+                  "ServerError" : {
                     "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
+                      "title" : "Server Error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#server-error",
                       "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
+                      "detail" : "Sent when a server error occurred that does not affect the signalling process"
                     }
                   }
                 }
@@ -1766,7 +2043,7 @@
         "type" : "object"
       },
       "JwsCompact" : {
-        "title" : "JWT token.",
+        "title" : "JWT token",
         "pattern" : "^[A-Za-z0-9_-]+(?:\\.[A-Za-z0-9_-]+){2}$",
         "description" : "The JWS compact representation schema defines the string pattern as a regular expression, denoting the structure a JWS compact token MUST follow to be a valid compact JWS Representation. It is used for defining the value of the Original-Sender token.",
         "format" : "jws-compact",
@@ -1989,6 +2266,23 @@
         },
         "example" : "application/json"
       },
+      "Message-Id" : {
+        "description" : "When the rMessageId URL parameter can't be used for providing the identifier of the response message, e.g. in synchronous responses, the Message-Id header field can be used instead. It identifies either a response or a signal message received synchronously.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "dde12f67-c391-4851-8fa2-c07dd8532efd"
+      },
+      "Timestamp" : {
+        "description" : "The Timestamp is the exact date and time at which the message was sent. It is provided by the client and verified by the server.",
+        "required" : true,
+        "schema" : {
+          "format" : "date-time",
+          "type" : "string"
+        },
+        "example" : "2021-06-17T08:30:00Z"
+      },
       "Edel-Message-Sig" : {
         "description" : "The Edel-Message-Sig carries the signature of the HTTP Message following the API Core Profile on Message-Level Security. Following the light context constraints, the signature is optional for the client messages, but is RECOMMENDED for server messages.",
         "required" : false,
@@ -2020,15 +2314,6 @@
           "type" : "string"
         },
         "example" : "9999::333222112"
-      },
-      "Timestamp" : {
-        "description" : "The Timestamp is the exact date and time at which the message was sent. It is provided by the client and verified by the server.",
-        "required" : true,
-        "schema" : {
-          "format" : "date-time",
-          "type" : "string"
-        },
-        "example" : "2021-06-17T08:30:00Z"
       }
     }
   },
@@ -2040,6 +2325,8 @@
         "description" : "The Webhook Response Message Submission endpoint is the webhook endpoint used for sending response messages in reply to a previously submitted message. It provides the endpoint to which a server sends the response message, as created by the final recipient. Table 6 provides an overview of the HTTP Multipart body and fields defined and required for the implementation of this endpoint.",
         "operationId" : "WebhookResponseMessageSubmissionId",
         "parameters" : [ {
+          "$ref" : "#/components/parameters/Timestamp"
+        }, {
           "$ref" : "#/components/parameters/Edel-Message-Sig"
         }, {
           "$ref" : "#/components/parameters/Original-Sender"
@@ -2047,8 +2334,6 @@
           "$ref" : "#/components/parameters/Original-Sender-Token"
         }, {
           "$ref" : "#/components/parameters/Final-Recipient"
-        }, {
-          "$ref" : "#/components/parameters/Timestamp"
         }, {
           "$ref" : "#/components/parameters/messageId"
         }, {
@@ -2086,6 +2371,12 @@
           "202" : {
             "description" : "Sent when the message is properly validated and received.",
             "headers" : {
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
               }
@@ -2111,6 +2402,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -2164,10 +2461,16 @@
             }
           },
           "500" : {
-            "description" : "The server encountered an unexpected condition that prevented it from fulfilling the request",
+            "description" : "Sent when a server error occurred that does not affect the signalling process",
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -2176,12 +2479,12 @@
                   "$ref" : "#/components/schemas/Problem"
                 },
                 "examples" : {
-                  "InternalServerError" : {
+                  "ServerError" : {
                     "value" : {
-                      "title" : "Internal Server Error",
-                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#internal-server-error",
+                      "title" : "Server Error",
+                      "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#server-error",
                       "status" : 500,
-                      "detail" : "The server encountered an unexpected condition that prevented it from fulfilling the request"
+                      "detail" : "Sent when a server error occurred that does not affect the signalling process"
                     }
                   }
                 }
@@ -2198,9 +2501,17 @@
         "description" : "The Webhook Signal Submission endpoint is the webhook endpoint used for signalling the availability of a response message in reply to a previously submitted message. It provides the endpoint to which a server signals the availability of the response message.",
         "operationId" : "WebhookSignalSubmissionId",
         "parameters" : [ {
+          "$ref" : "#/components/parameters/Timestamp"
+        }, {
           "$ref" : "#/components/parameters/Edel-Message-Sig"
         }, {
           "$ref" : "#/components/parameters/messageId"
+        }, {
+          "$ref" : "#/components/parameters/Original-Sender"
+        }, {
+          "$ref" : "#/components/parameters/Original-Sender-Token"
+        }, {
+          "$ref" : "#/components/parameters/Final-Recipient"
         } ],
         "requestBody" : {
           "content" : {
@@ -2212,7 +2523,7 @@
                 "title" : "Message Response is ready",
                 "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#message-ready",
                 "status" : 201,
-                "detail" : "An HTTP Request following [RFC7807] MUST be sent when a message response is ready to be retrieve",
+                "detail" : "An HTTP Request following [RFC7807] MUST be sent when a message response is ready to be retrieved",
                 "instance" : "/my-service/my-action/dde12f67-c391-4851-8fa2-c07dd8532efd",
                 "digest" : "sha-256=eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ"
               }
@@ -2223,6 +2534,12 @@
           "202" : {
             "description" : "Sent when the message is properly validated and received.",
             "headers" : {
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
               }
@@ -2248,6 +2565,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -2258,7 +2581,7 @@
                 "examples" : {
                   "NoFinalRecipient" : {
                     "value" : {
-                      "title" : "No final recipient configured for the pulling user",
+                      "title" : "Pull Error: No final recipient configured for the pulling user",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-final-recipient",
                       "status" : 400,
                       "detail" : "Sent when the server cannot resolve/match the pulling user to a final recipient"
@@ -2273,6 +2596,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -2283,7 +2612,7 @@
                 "examples" : {
                   "NoMessageFound" : {
                     "value" : {
-                      "title" : "No Message Found",
+                      "title" : "Pull Error: No Message Found",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/no-message-found",
                       "status" : 404,
                       "detail" : "Sent when no message is found that maps to the pull request"
@@ -2298,6 +2627,12 @@
             "headers" : {
               "Edel-Message-Sig" : {
                 "$ref" : "#/components/headers/Edel-Message-Sig"
+              },
+              "Timestamp" : {
+                "$ref" : "#/components/headers/Timestamp"
+              },
+              "Message-Id" : {
+                "$ref" : "#/components/headers/Message-Id"
               }
             },
             "content" : {
@@ -2308,7 +2643,7 @@
                 "examples" : {
                   "Unauthorized" : {
                     "value" : {
-                      "title" : "Unauthorized",
+                      "title" : "Pull Error: Unauthorized",
                       "type" : "https://github.com/isa2-api4ips/rest-api-profile/blob/main/messaging-api-specification/signal.md#pull/unauthorized",
                       "status" : 401,
                       "detail" : "Sent when the pull request is unauthorized"
