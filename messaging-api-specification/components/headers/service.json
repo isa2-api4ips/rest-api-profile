@@ -1,0 +1,8 @@
+{
+  "description" : "When, in synchronous responses, the rService URL parameter cannot be used for providing the service of the response message, the Service header field can be used instead for the purpose. It is combined with the action from the Action header field to provide a complete domain-level message target.",
+  "required" : true,
+  "schema" : {
+    "type" : "string"
+  },
+  "example" : "dsd-service"
+}
