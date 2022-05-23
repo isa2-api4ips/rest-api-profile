@@ -238,6 +238,14 @@
       }
     },
     "headers" : {
+      "Action" : {
+        "description" : "When, in synchronous responses, the rAction URL parameter cannot be used for providing the action of the service of the response message, the Action header field can be used instead for the purpose. It is combined with the service from the Service header field to provide a complete domain-level message target.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "dsd-action"
+      },
       "Original-Sender" : {
         "description" : "The Original Sender is the entity that initiates the submission of the message. It is a single identifier and its representation is out of scope of the current specification.",
         "required" : true,
@@ -261,6 +269,14 @@
           "type" : "string"
         },
         "example" : "9999::333222112"
+      },
+      "Service" : {
+        "description" : "When, in synchronous responses, the rService URL parameter cannot be used for providing the service of the response message, the Service header field can be used instead for the purpose. It is combined with the action from the Action header field to provide a complete domain-level message target.",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "dsd-service"
       },
       "Original-Sender-Token" : {
         "description" : "The Original Sender represents the authenticated entity acting as the user that sends the message using the client. Following the API Core Profile, the original sender MUST be represented with an OpenID Connect token or a signed JWT in both the form of Compact JWT Token, which is carried under the Original-Sender-Token HTTP Field",
